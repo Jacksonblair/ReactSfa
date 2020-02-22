@@ -1,0 +1,30 @@
+.Darkener {
+	background: grey;
+	height: 100%;
+	width: 100%;
+}
+
+.FightBox {
+	width: 60%;
+	height: 40%;
+	top: 30%;
+	left: 20%;
+	/*border: 1px solid red;*/
+	position: absolute;
+}
+
+.winner {
+
+}
+
+.loser {
+
+}
+
+.left {
+
+}
+
+.right {
+
+}

@@ -1,0 +1,16 @@
+.SelectScreen {
+	opacity: 0;
+}
+
+.selectHeader {
+	text-align: center;
+}
+
+.vsHeader {
+	position: absolute;
+	width: 20%;
+	bottom: 0;
+	left: 40%;
+	text-align: center;
+	margin: 0px;
+}

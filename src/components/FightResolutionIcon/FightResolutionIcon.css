@@ -1,0 +1,114 @@
+.icon {
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	box-sizing: border-box;
+	border: 2px solid white;
+	opacity: 0;
+}
+
+.paper {
+	background-image: url('~../../assets/images/paper.png');
+}
+
+.scissors {
+	background-image: url('~../../assets/images/scissors.png');
+}
+
+.rock {
+	background-image: url('~../../assets/images/rock.png');
+}
+
+.leftWinner {
+	left: 0;
+	animation: leftWinner 2s linear infinite;
+}
+
+.rightWinner {
+	right: 0;
+	animation: rightWinner 2s linear infinite;
+}
+
+.leftLoser {
+	left: 0;
+	animation: leftLoser 2s linear infinite;
+}
+
+.rightLoser {
+	right: 0;
+	animation: rightLoser 2s linear infinite;
+}
+
+.leftTie {
+	left: 0;
+	animation: leftTie 2s linear infinite;
+}
+
+.rightTie {
+	right: 0;
+	animation: rightTie 2s linear infinite;
+}
+
+@keyframes leftWinner {
+	1% { opacity: 0; }
+	15% { opacity: 1; left: 0; }
+	25% { left: 0; }
+	30% { left: 20%;}
+	85% { left: 0; opacity: 1;}
+	100% { opacity: 0;}
+}
+
+@keyframes rightWinner {
+	1% { opacity: 0; }
+	15% { opacity: 1; right: 0; }
+	25% { right: 0; }
+	30% { right: 20%;}
+	85% { right: 0; opacity: 1;}
+	100% { opacity: 0;}
+}
+
+@keyframes rightLoser {
+	1% { opacity: 0;}
+	15% { opacity: 1;}
+	30% { border: 2px solid white;}
+	32% { border: 2px solid red; }
+	34% { border: 2px solid white;}
+	36% { border: 2px solid red;}
+	38% { border: 2px solid white;}
+	40% { border: 2px solid red; }
+	42% { border: 2px solid white;}
+	85% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+@keyframes leftLoser {
+	1% { opacity: 0;}
+	15% { opacity: 1;}
+	30% { border: 2px solid white;}
+	32% { border: 2px solid red; }
+	34% { border: 2px solid white;}
+	36% { border: 2px solid red;}
+	38% { border: 2px solid white;}
+	40% { border: 2px solid red; }
+	42% { border: 2px solid white;}
+	85% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+@keyframes rightTie {
+	1% { opacity: 0; }
+	15% { opacity: 1; right: 0; }
+	25% { right: 0; }
+	30% { right: 10%;}
+	85% { right: 0; opacity: 1;}
+	100% { opacity: 0;}
+}
+
+@keyframes leftTie {
+	1% { opacity: 0; }
+	15% { opacity: 1; left: 0; }
+	25% { left: 0; }
+	30% { left: 10%;}
+	85% { left: 0; opacity: 1;}
+	100% { opacity: 0;}
+}

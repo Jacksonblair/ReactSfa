@@ -1,0 +1,13 @@
+.CharacterName {
+	position: absolute;
+	top: 40px;
+	border: 1px solid grey;
+}
+
+.left {
+	left: 0;
+}
+
+.right {
+	right: 0;
+}

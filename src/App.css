@@ -1,0 +1,31 @@
+.App {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:global .screen {
+	background: white;
+	height: 300px;
+	width: 480px;
+	opacity: 0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    overflow: hidden;
+}
+
+:global .fadeIn {
+	animation: fadeIn 1s linear forwards;
+}
+
+:global .fadeOut {
+	animation: fadeOut 1s linear forwards;
+}
+
+@keyframes :global(fadeIn) {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+@keyframes :global(fadeOut) {
+	0% {opacity: 1;}
+	100% {opacity: 0;}
+}

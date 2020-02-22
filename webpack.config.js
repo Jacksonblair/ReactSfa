@@ -11,34 +11,34 @@ const bundlePath = path.resolve(__dirname, "dist/")
 module.exports = (_env,argv)=> {
   let entryPoints = {
     VideoComponent:{
-      path:"./src/VideoComponent.js",
+      path:"./src/views/VideoComponent.js",
       outputHtml:"video_component.html",
       build:true
     },
     VideoOverlay:{
-      path:"./src/VideoOverlay.js",
+      path:"./src/views/VideoOverlay.js",
       outputHtml:"video_overlay.html",
-      build:true
+      build:false
     },
     Panel:{
-      path:"./src/Panel.js",
+      path:"./src/views/Panel.js",
       outputHtml:"panel.html",
-      build:true
+      build:false
     },
     Config:{
-      path:"./src/Config.js",
+      path:"./src/views/Config.js",
       outputHtml:"config.html",
-      build:true
+      build:false
     },
     LiveConfig:{
-      path:"./src/LiveConfig.js",
+      path:"./src/views/LiveConfig.js",
       outputHtml:"live_config.html",
-      build:true
+      build:false
     },
     Mobile:{
-      path:"./src/Mobile.js",
+      path:"./src/views/Mobile.js",
       outputHtml:"mobile.html",
-      build:true
+      build:false
     }
   }
 
@@ -79,7 +79,12 @@ module.exports = (_env,argv)=> {
         },
         {
           test: /\.css$/,
-          use: [ 'style-loader', 'css-loader' ]
+          use: [ 'style-loader', {
+              loader: 'css-loader',
+              options: {
+                modules: true
+              },
+          }]
         },
         {
           test: /\.scss$/,
@@ -115,7 +120,17 @@ module.exports = (_env,argv)=> {
       },
       port: 8080
     }
-    config.devServer.https = true
+    config.devServer.https = true,
+    config.devServer.stats = {
+      colors: true,
+      hash: false,
+      version: false,
+      timings: false,
+      assets: false,
+      chunks: false,
+      modules: false,
+      children: false
+    }
   }
   if(argv.mode==='production'){
     config.optimization.splitChunks={

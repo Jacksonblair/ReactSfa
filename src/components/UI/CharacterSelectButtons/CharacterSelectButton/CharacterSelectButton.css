@@ -1,0 +1,8 @@
+.selectButton {
+	height: 100%;
+	width: 120px;
+	border: 1px solid grey;
+	display: inline-block;
+	box-sizing: border-box;
+	background: salmon;
+}

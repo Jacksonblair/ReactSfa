@@ -1,0 +1,36 @@
+.Avatar {
+	position: absolute;
+	bottom: 0;
+	box-sizing: border-box;
+	border: 1px solid green;
+	height: 180px;
+	width: 180px;
+}
+
+.left {
+	left: -180px;
+}
+
+.right {
+	right: -180px;
+}
+
+.slideInLeft {
+	animation: slideInLeft 2s ease-out forwards;
+}
+
+.slideInRight {
+	animation: slideInRight 2s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+	0% {left: -180px;}
+	50% {left: -180px;}
+	100% {left: 0;}
+}
+
+@keyframes slideInRight {
+	0% {right: -180px;}
+	50% {right: -180px;}
+	100% {right: 0;}
+}

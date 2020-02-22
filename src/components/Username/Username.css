@@ -1,0 +1,52 @@
+.Start {
+	width: 100px;
+	border: 1px solid grey;
+	position: fixed;
+	text-align: center;
+	bottom: 0;
+	box-sizing: border-box;
+}
+
+.Select {
+	width: 100px;
+	border: 1px solid grey;
+	position: fixed;
+	text-align: center;
+	bottom: 0;
+	box-sizing: border-box;
+}
+
+.Fight {
+	width: 100px;
+	height: 30px;
+	border: 1px solid grey;
+	position: fixed;
+	text-align: center;
+	top: 0;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.startLeft {
+	left: 0;
+}
+
+.startRight {
+	right: 0;
+}
+
+.selectLeft {
+	left: 100px;
+}
+
+.selectRight {
+	right: 100px;
+}
+
+.fightLeft {
+	left: 0;
+}
+
+.fightRight {
+	right: 0;
+}
