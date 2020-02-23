@@ -21,32 +21,32 @@
 
 .leftWinner {
 	left: 0;
-	animation: leftWinner 2s linear infinite;
+	animation: leftWinner 2s linear;
 }
 
 .rightWinner {
 	right: 0;
-	animation: rightWinner 2s linear infinite;
+	animation: rightWinner 2s linear;
 }
 
 .leftLoser {
 	left: 0;
-	animation: leftLoser 2s linear infinite;
+	animation: leftLoser 2s linear;
 }
 
 .rightLoser {
 	right: 0;
-	animation: rightLoser 2s linear infinite;
+	animation: rightLoser 2s linear;
 }
 
 .leftTie {
 	left: 0;
-	animation: leftTie 2s linear infinite;
+	animation: leftTie 2s linear;
 }
 
 .rightTie {
 	right: 0;
-	animation: rightTie 2s linear infinite;
+	animation: rightTie 2s linear;
 }
 
 @keyframes leftWinner {

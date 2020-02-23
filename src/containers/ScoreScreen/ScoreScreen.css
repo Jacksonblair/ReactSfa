@@ -1,0 +1,39 @@
+.scoreHeader {
+	text-align: center;
+	margin: 0px;
+}
+
+.HighScores {
+	width: 100%;
+	height: 100%;
+}
+
+.column {
+	display: inline-block;
+	height: 80%;
+	box-sizing: border-box;
+	border: 1px solid grey;
+}
+
+.column p {
+	width: 100%;
+	height: 10%;
+	box-sizing: border-box;
+	border: 1px solid blue;
+	padding: 0px;
+	margin: 0px;
+}
+
+.rankColumn {
+	width: 10%;
+	margin-left: 10%;
+}
+
+.nameColumn {
+	width: 35%;
+}
+
+.scoreColumn {
+	width: 35%;
+	text-align: right;
+}

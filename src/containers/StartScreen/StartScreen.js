@@ -15,7 +15,7 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class StartScreen extends Component {
 
 	state = {
-		
+		// local UI state
 	}
 
 	render() {
@@ -38,10 +38,4 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StartScreen);
+export default connect(mapStateToProps)(StartScreen);

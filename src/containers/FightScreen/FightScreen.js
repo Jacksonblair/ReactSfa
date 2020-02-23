@@ -7,9 +7,10 @@ import Username from '../../components/Username/Username';
 import CharacterName from '../../components/CharacterName/CharacterName';
 import Timer from '../../components/Timer/Timer';
 import HpBars from '../../components/HpBars/HpBars';
-import Avatars from '../../components/Avatars/Avatars';
+import Avatar from '../../components/Avatar/Avatar';
 import ActionButtons from '../../components/UI/ActionButtons/ActionButtons';
-import FightResolution from '../FightResolution/FightResolution';
+import FightResolution from '../../components/FightResolution/FightResolution';
+import Message from '../../components/Message/Message';
 
 // styles
 import classes from './FightScreen.css';
@@ -20,8 +21,10 @@ class FightScreen extends Component {
 
 	state = {
 		// local UI state
-		showingFight: false,
-		canShowFight: false
+		fightUnderway: false,
+		fightTriggered: false,
+		avatarsShown: false,
+		fightMessageShown: false
 	}
 
 	actionClickedHandler = (action) => {
@@ -29,58 +32,94 @@ class FightScreen extends Component {
 		log('[FightScreen] action clicked ' + action)
 	}
 
-	canShowFight = () => {
-		// Checks if players have both acted && a fight is not previously allowed to be shown
-		// Then allows fight to be shown...
-		// Fights will also be allowed to shown when the 'round' has changed
-		// But only if they started before the round has changed
-		if (this.props.playerOneActions[this.props.round - 1] && this.props.playerTwoActions[this.props.round - 1] && !this.state.canShowFight) {
-			this.setState({canShowFight: true})
-			this.setState({showingFight: true})
-			log('[FightScreen] display fight');
+	shouldShowFight = () => {
+		// If both players acted ... 
+		if (this.props.playerOneActions[this.props.round - 1] && this.props.playerTwoActions[this.props.round - 1] && !this.state.fightTriggered) {
+			log('[CanShowFight]');
 
-			// Sets Timeout to set condition for displaying <FightResolution> component
-			// Using state.showFighting so it can remain irrespective
-			// of a state change, which allows it to play for users
-			// who open the app at weird times.
-			// ..
-			// Can also use this to trigger visual changes for healthbars/avatars
+			// Tell app to trigger fight, which stops this function from forevering
+			// Also let app know that fight is underway
+			this.setState({fightTriggered: true})
+			this.setState({fightUnderway: true})
+			log('[FightScreen] Fight triggered & fight underway')
 
+			// After x seconds, let app know fight no longer underway
 			setTimeout(() => {
-				log('[FightScreen] remove fight')
-				this.setState({showingFight: false})
+				this.setState({fightUnderway: false});
+				log('[FightScreen] Fight no longer underway')				
 			}, 2000)
 		}
 	}
 
 	componentDidMount = () => {
-		// Check if you can show fight
-		// (For users who open app halfway through)
-		this.canShowFight()
+		// Stops avatar mount animation from playing twice
+		setTimeout(() => {
+			this.setState({avatarsShown: true})
+		}, 1500);
+
+		// Lets 'FIGHT!' message show briefly on load
+		setTimeout(() => {
+			this.setState({fightMessageShown: true})
+		}, 3000)
+
+		// Check if a round sequence can be shown
+		this.shouldShowFight()
 	}
 
 	componentDidUpdate = (prevProps) => {
 		// Checks if new round has started
 		if (prevProps.round !== this.props.round) {
-			this.setState({canShowFight: false})
-			log('[FightScreen] New round');			
+			// When round changes, allow App to check if fights can be resolved again..
+			this.setState({fightTriggered: false})
 		}
 
-		// Check if you can show fight
-		this.canShowFight();
+		// Check if a round sequence can be shown
+		this.shouldShowFight()
 	}
 
 	render() {
 
-		// Shows fight if time to show fight
+		// Shows fight resolution if fight underway
 		let fightResolution = null;
-		if (this.state.showingFight) {
+		if (this.state.fightUnderway) {
 			fightResolution = (
 				<FightResolution 
 					p1Action={this.props.playerOneActions[this.props.round - 1]}
 					p2Action={this.props.playerTwoActions[this.props.round - 1]}
 					round={this.props.round}
+					winner={this.props.winner[this.props.round - 1]}
 				/>
+			)
+		}
+
+		// If screen is mounted, show fight message
+		let fightMessage = null;
+		if (!this.state.fightMessageShown && !this.state.fightTriggered) {
+			let theMessage = `FIGHT!`
+			fightMessage = (
+				<Message type="FIGHT">
+					{theMessage}
+				</Message>
+			)
+		}
+
+		// If there is an overall winner, show winner message
+		let winnerMessage = null;
+		if (this.props.overallWinner) {
+			let theMessage = `Player ${this.props.overallWinner} wins!`
+			winnerMessage = (
+				<Message type="WINNER">
+					{theMessage}
+				</Message>
+			)
+		}
+
+		// hide action bar if there is a fight underway ...
+		// ... or if there is an overall winner (match is over)
+		let actionButtons = null;
+		if (!this.state.fightUnderway && !this.props.overallWinner) {
+			actionButtons = (
+				<ActionButtons clicked={(action) => this.actionClickedHandler(action)}/>
 			)
 		}
 
@@ -93,9 +132,26 @@ class FightScreen extends Component {
 				<CharacterName left character={this.props.characterOne}/>
 				<CharacterName character={this.props.characterTwo}/>
 				<Timer screen="FIGHT" timer={this.props.timer}/>
-				<Avatars />
-				<ActionButtons clicked={(action) => this.actionClickedHandler(action)}/>
+				<Avatar
+					winner={this.props.winner[this.props.round - 1]} 
+					overallWinner={this.props.overallWinner}
+					player={1}
+					shown={this.state.avatarsShown}
+					fightTriggered={this.state.fightTriggered}
+					character={this.props.characterOne}
+				/>				
+				<Avatar 
+					winner={this.props.winner[this.props.round - 1]} 
+					overallWinner={this.props.overallWinner}
+					player={2}
+					shown={this.state.avatarsShown}
+					fightTriggered={this.state.fightTriggered}
+					character={this.props.characterTwo}
+				/>
+				{actionButtons}
 				{fightResolution}
+				{winnerMessage}
+				{fightMessage}
 			</div>
 		)
 	}
@@ -114,7 +170,9 @@ const mapStateToProps = state => {
         timer: state.timer,
         characterOne: state.characterOne,
         characterTwo: state.characterTwo,
-        round: state.round
+        round: state.round,
+        winner: state.winner,
+        overallWinner: state.overallWinner
     };
 }
 

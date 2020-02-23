@@ -12,13 +12,21 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class Console extends Component {
 
     state = {
-        screen: 'FIGHT',
+        screen: 'NEXT',
         timer: 10,
         playerOneHp: 3,
         playerTwoHp: 3,
         playerOneActions: [],
         playerTwoActions: [],
-        round: 1
+        playerOneUsername: '',
+        playerTwoUsername: '',
+        round: 1,
+        winner: [],
+        overallWinner: null,
+        characterOne: "test",
+        characterTwo: "test",
+        nextPlayerOne: 'asdasd123',
+        nextPlayerTwo: 'asda12312'
     }
 
     componentDidMount = () => {
@@ -40,6 +48,14 @@ class Console extends Component {
 
     getFightScreen = () => {
         this.setState({screen: "FIGHT"})
+    }
+
+    getScoreScreen = () => {
+        this.setState({screen: "SCORE"})
+    }
+
+    getNextScreen = () => {
+        this.setState({screen: "NEXT"})
     }
 
     incrementTimer = () => {
@@ -68,23 +84,74 @@ class Console extends Component {
                 this.setState({playerTwoHp: hp - 1})
             }
         }
+
+        if (hp - 1 === 0) {
+            log(`[Console] Player ${player} has 0 hp`);
+            log(`[Console] Overall winner is player ${player === 1 ? 2 : 1}`);
+            this.setState({overallWinner: player === 1 ? 2 : 1})
+        }
     }
 
     playerAction = (action, player, round) => {
-        log(action + " for player: " + player + " @ round: " + round)
+
+        // keeping it dry
+        let actionsArray = [this.state.playerOneActions, this.state.playerTwoActions]
+        let newActions = [...actionsArray[player - 1]];
+        newActions[round - 1] = action;
+
+        // wrote if with if, because i can't figure out
+        // how to set state more dryly conditionally.
         if (player === 1) {
-            let newActions = [...this.state.playerOneActions];
-            newActions[round - 1] = action;
-            this.setState({playerOneActions: newActions});
+            this.setState({ playerOneActions: newActions},
+            () => {
+                this.shouldSetWinner();
+            })
         } else {
-            let newActions = [...this.state.playerTwoActions];
-            newActions[round - 1] = action;
-            this.setState({playerTwoActions: newActions});
+            this.setState({ playerTwoActions: newActions},
+            () => {
+                this.shouldSetWinner();
+            })
         }
+    }
+
+    shouldSetWinner = () => {
+
+        let round = this.state.round - 1;
+        // if both players acted for this round && winner result has not been recorded already
+        if(this.state.playerOneActions[round] && this.state.playerTwoActions[round] && !this.state.winner[round]) {
+            let winner = null;
+            const actions = ["PA", "SC", "RO"]; // use indexes to calculate result
+            let a = actions.indexOf(this.state.playerOneActions[round])
+            let b = actions.indexOf(this.state.playerTwoActions[round]);
+
+            /*https://stackoverflow.com/questions/11377117/rock-paper-scissors-determine-win-loss-tie-using-math*/
+            if (a === b) { 
+                winner = 3; // tie
+            } else if ((a - b + 3) % 3 == 1) {
+                winner = 1; // player 1 wins
+            } else {
+                winner = 2; // player 2 wins
+            }
+
+            let newArray = [...this.state.winner];
+            newArray[round] = winner;
+            this.setState({winner: newArray}, () => {
+                // log('[Console] Round winner is: ' + this.state.winner[round]);
+            })
+        }
+
     }
 
     nextRound = (round) => {
         this.setState({ round: round + 1});
+    }
+
+    setPlayerUsername = (name, player) => {
+        if (player === 1) { 
+            this.setState({playerOneUsername: name})
+        } else {
+            this.setState({playerTwoUsername: name})
+        }
     }
 
     render(){
@@ -94,6 +161,12 @@ class Console extends Component {
                     <button onClick={this.getStartScreen}> start screen </button>
                     <button onClick={this.getSelectScreen}> select screen </button>
                     <button onClick={this.getFightScreen}> fight screen </button> 
+                    <button onClick={this.getScoreScreen}> score screen </button> 
+                    <button onClick={this.getNextScreen}> next screen </button> 
+                </div>
+                <div>
+                    <input onChange={(event) => this.setPlayerUsername(event.target.value, 1)}/>
+                    <input onChange={(event) => this.setPlayerUsername(event.target.value, 2)}/>
                 </div>
                 <div>
                     <button onClick={this.incrementTimer}> + Time </button>

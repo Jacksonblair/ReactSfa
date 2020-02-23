@@ -12,7 +12,11 @@ const initialState = {
 	characterOne: null,
 	characterTwo: null,
 	timer: 10,
-	round: 1
+	round: 1,
+	winner: [],
+	overallWinner: null,
+	nextPlayerOne: '',
+	nextPlayerTwo: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,7 +34,15 @@ const reducer = (state = initialState, action) => {
 				playerTwoHp: action.payload.gameState.playerTwoHp,
 				playerOneActions: [...action.payload.gameState.playerOneActions],
 				playerTwoActions: [...action.payload.gameState.playerTwoActions],
-				round: action.payload.gameState.round
+				playerOneUsername: action.payload.gameState.playerOneUsername,
+				playerTwoUsername: action.payload.gameState.playerTwoUsername,
+				round: action.payload.gameState.round,
+				winner: [...action.payload.gameState.winner],
+				overallWinner: action.payload.gameState.overallWinner,
+				characterOne: action.payload.gameState.characterOne,
+				characterTwo: action.payload.gameState.characterTwo,
+		        nextPlayerOne: action.payload.gameState.nextPlayerOne,
+		        nextPlayerTwo: action.payload.gameState.nextPlayerTwo
 			}
 	}
 	return state;

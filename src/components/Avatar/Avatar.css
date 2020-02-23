@@ -1,0 +1,127 @@
+.Avatar {
+	position: absolute;
+	bottom: 0;
+	box-sizing: border-box;
+	height: 180px;
+	width: 180px;
+	border: 1px solid grey;
+}
+
+.left {
+	left: 0;
+}
+
+.right {
+	right: 0;
+}
+
+.winner {
+	animation: winner 3s step-start 2s;
+}
+
+.loser {
+	animation: loser 3s step-start 2s;
+}
+
+.tie {
+	animation: tie 3s step-start 2s;
+}
+
+.overallWinner {
+	animation: overallWinner 3s step-start forwards 1s;
+}
+
+.overallLoser {
+	animation: overallLoser 3s linear forwards 1s;
+}
+
+.slideInRight {
+	animation: slideInRight 2s ease-out forwards;
+}
+
+.slideInLeft {
+	animation: slideInLeft 2s ease-out forwards;
+}
+
+.testCharacter {
+	background-image: url('~../../assets/images/sprites_testCharacter.png');
+}	
+
+@keyframes winner {
+	0% {
+		border: 5px solid green;
+		background-position: -180px 0px;
+	}
+	20% {
+		background-position: 0px 0px;
+	}
+	40% {
+		background-position: -180px 0px;
+	}
+	60% {
+		background-position: 0px 0px;
+	}
+}
+
+@keyframes loser {
+	0% {
+		border: 5px solid red;
+		background-position: -540px 0px;
+	}
+	20% {
+		background-position: -360px 0px;
+	}
+	40% {
+		background-position: -540px 0px;
+	}
+	60% {
+		background-position: -360px 0px;
+	}
+}
+
+@keyframes tie {
+	0% {
+		border: 5px solid yellow;
+		background-position: -720px 0px;
+	}
+	20% {
+		background-position: -900px 0px;
+	}
+	40% {
+		background-position: -720px 0px;
+	}
+	60% {
+		background-position: -900px 0px;
+	}
+}
+
+@keyframes overallWinner {
+	100% {
+		background-position: -1080px 0px;
+	}
+}
+
+@keyframes overallLoser {
+	0% {
+		background-position: -1260px 0px;
+	}
+	30% {
+		bottom: 0;
+	}
+	100% {
+		bottom: -180px;
+		background-position: -1260px 0px
+	}
+}
+
+@keyframes slideInLeft {
+	0% {left: -180px;}
+	50% {left: -180px;}
+	100% {left: 0;}
+}
+
+@keyframes slideInRight {
+	0% {right: -180px;}
+	50% {right: -180px;}
+	100% {right: 0;}
+}

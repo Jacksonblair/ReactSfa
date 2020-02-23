@@ -1,0 +1,31 @@
+.nextHeader {
+	text-align: center;
+	margin-top: 20%;
+}
+
+.player {
+	position: absolute;
+	width: 40%;
+	top: 40%;
+	border: 1px solid grey;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.left {
+	left: 5%;
+}
+
+.right {
+	right: 5%;
+}
+
+.vs {
+	position: absolute;
+	width: 10%;
+	left: 45%;
+	top: 40%;
+	text-align: center;
+	border: 1px solid grey;
+	box-sizing: border-box;
+}

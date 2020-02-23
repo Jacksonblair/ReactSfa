@@ -7,6 +7,8 @@ import * as actionTypes from './store/actions';
 import StartScreen from './containers/StartScreen/StartScreen';
 import SelectScreen from './containers/SelectScreen/SelectScreen';
 import FightScreen from './containers/FightScreen/FightScreen';
+import ScoreScreen from './containers/ScoreScreen/ScoreScreen';
+import NextScreen from './containers/NextScreen/NextScreen';
 import Console from './util/Console/Console';
 
 // fake server for testing
@@ -84,6 +86,12 @@ class App extends Component {
                 break;
             case "FIGHT":
                 screen = <FightScreen class={this.state.screenClass}/>
+                break;
+            case "SCORE":
+                screen = <ScoreScreen class={this.state.screenClass}/>
+                break;
+            case "NEXT":
+                screen = <NextScreen class={this.state.screenClass}/>
                 break;
         }
 

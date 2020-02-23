@@ -67,10 +67,4 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectScreen);
+export default connect(mapStateToProps)(SelectScreen);
