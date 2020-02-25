@@ -21,10 +21,15 @@ class FightScreen extends Component {
 
 	state = {
 		// local UI state
-		fightUnderway: false,
-		fightTriggered: false,
 		avatarsShown: false,
-		fightMessageShown: false
+		fightMessageShown: false,
+		screenReady: false,
+		fightBeingShown: false,
+		fightCanBeShown: true
+	}
+
+	userIsPlayer() {
+		return this.props.appUserId === this.props.playerOneId || this.props.appUserId === this.props.playerTwoId
 	}
 
 	actionClickedHandler = (action) => {
@@ -32,26 +37,57 @@ class FightScreen extends Component {
 		log('[FightScreen] action clicked ' + action)
 	}
 
+	// if player loads
+
+	// Show initial animations (fight message, avatar slide in, etc)
+	// then..
+
+	// Show a fight if there are two actions for the current round
+	// .. And a fight has not already been shwon
+
+	// If the round changes right after a user loads app
+	// .. App should give x seconds before it allows any more fights to be shwon
+	// .. To allow previous fight to resolve visually
+
+	// variables:
+	// screenReady
+	//
+	// 2 x actions, round, fightIsBeingShown
+	//
+	// reference fightIsBeingShown ^ 
+
 	shouldShowFight = () => {
-		// If both players acted ... 
-		if (this.props.playerOneActions[this.props.round - 1] && this.props.playerTwoActions[this.props.round - 1] && !this.state.fightTriggered) {
-			log('[CanShowFight]');
+		// If screen not ready, exit function.
+		if (!this.state.screenReady) {
+			return;
+		// Else if both players have acted for current round..
+		// ..and a fight is not already being shown
+		} else if (this.props.playerOneActions[this.props.round - 1] 
+		&& this.props.playerTwoActions[this.props.round - 1] 
+		&& !this.state.fightBeingShown
+		&& this.state.fightCanBeShown) {
+			log('[FightScreen] Showing fight for round: ' + this.props.round);
+			
+			// Tell app fight is being shown..
+			// .. and that a fight can't be shown until this one is over..
+			this.setState({fightBeingShown: true, fightCanBeShown: false})
+			log('[FightScreen] Fight being shown!')
 
-			// Tell app to trigger fight, which stops this function from forevering
-			// Also let app know that fight is underway
-			this.setState({fightTriggered: true})
-			this.setState({fightUnderway: true})
-			log('[FightScreen] Fight triggered & fight underway')
-
-			// After x seconds, let app know fight no longer underway
+			// After x seconds, let app know fight is finished ..
+			// .. and is no longer being shown ..
 			setTimeout(() => {
-				this.setState({fightUnderway: false});
-				log('[FightScreen] Fight no longer underway')				
-			}, 2000)
+				log('[FightScreen] Fight stopped being shown!')
+				this.setState({fightBeingShown: false});
+			}, 4000)
 		}
 	}
 
 	componentDidMount = () => {
+		// After three seconds, screen can update.
+		setTimeout(() => {
+			this.setState({screenReady: true})
+		}, 3000)
+
 		// Stops avatar mount animation from playing twice
 		setTimeout(() => {
 			this.setState({avatarsShown: true})
@@ -67,10 +103,24 @@ class FightScreen extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		// Checks if new round has started
+		// If a new round has been started..
+		// ..And a fight is not being currently shown..
+		// ..Allow app to show another fight..
 		if (prevProps.round !== this.props.round) {
-			// When round changes, allow App to check if fights can be resolved again..
-			this.setState({fightTriggered: false})
+			log('[FightScreen] There is a new round');
+			if (!this.state.fightBeingShown) {
+				this.setState({fightCanBeShown: true})				
+			} else {
+				log('[FightScreen] Waiting to show next round')
+				let checkInt = setInterval(() => {
+					log('[FightScreen] Waiting...');
+					if (!this.state.fightBeingShown) {
+						this.setState({fightCanBeShown: true})
+						log('[FightScreen] Showing next round')
+						clearInterval(checkInt);
+					}
+				}, 500)
+			}
 		}
 
 		// Check if a round sequence can be shown
@@ -79,9 +129,20 @@ class FightScreen extends Component {
 
 	render() {
 
+		// Allow fight message to show for x seconds
+		let fightMessage = null;
+		if (!this.state.fightMessageShown) {
+			let theMessage = `FIGHT!`
+			fightMessage = (
+				<Message type="FIGHT">
+					{theMessage}
+				</Message>
+			)
+		}
+
 		// Shows fight resolution if fight underway
 		let fightResolution = null;
-		if (this.state.fightUnderway) {
+		if (this.state.fightBeingShown) {
 			fightResolution = (
 				<FightResolution 
 					p1Action={this.props.playerOneActions[this.props.round - 1]}
@@ -92,14 +153,14 @@ class FightScreen extends Component {
 			)
 		}
 
-		// If screen is mounted, show fight message
-		let fightMessage = null;
-		if (!this.state.fightMessageShown && !this.state.fightTriggered) {
-			let theMessage = `FIGHT!`
-			fightMessage = (
-				<Message type="FIGHT">
-					{theMessage}
-				</Message>
+		// hide action bar if there is a fight underway..
+		// ..or if there is an overall winner (match is over) ..
+		// ..or if screen is not ready..
+		// ..or if the user is not a player..
+		let actionButtons = null;
+		if (this.userIsPlayer() && !this.state.fightBeingShown && !this.props.overallWinner && this.state.screenReady) {
+			actionButtons = (
+				<ActionButtons clicked={(action) => this.actionClickedHandler(action)}/>
 			)
 		}
 
@@ -114,14 +175,6 @@ class FightScreen extends Component {
 			)
 		}
 
-		// hide action bar if there is a fight underway ...
-		// ... or if there is an overall winner (match is over)
-		let actionButtons = null;
-		if (!this.state.fightUnderway && !this.props.overallWinner) {
-			actionButtons = (
-				<ActionButtons clicked={(action) => this.actionClickedHandler(action)}/>
-			)
-		}
 
 		return (
 			<div className={this.props.class}> 
@@ -129,24 +182,26 @@ class FightScreen extends Component {
 				<Username screen="FIGHT" username={this.props.playerTwoUsername} /> 
 				<HpBars left hp={this.props.playerOneHp}/>
 				<HpBars hp={this.props.playerTwoHp}/>
-				<CharacterName left character={this.props.characterOne}/>
-				<CharacterName character={this.props.characterTwo}/>
+				<CharacterName left screen="FIGHT" character={this.props.characterOne}/>
+				<CharacterName screen="FIGHT" character={this.props.characterTwo}/>
 				<Timer screen="FIGHT" timer={this.props.timer}/>
 				<Avatar
 					winner={this.props.winner[this.props.round - 1]} 
 					overallWinner={this.props.overallWinner}
 					player={1}
-					shown={this.state.avatarsShown}
-					fightTriggered={this.state.fightTriggered}
 					character={this.props.characterOne}
+					mounted={this.state.avatarsShown}
+					// This prop controls class assignment
+					fightBeingShown={this.state.fightBeingShown}
 				/>				
 				<Avatar 
 					winner={this.props.winner[this.props.round - 1]} 
 					overallWinner={this.props.overallWinner}
 					player={2}
-					shown={this.state.avatarsShown}
-					fightTriggered={this.state.fightTriggered}
 					character={this.props.characterTwo}
+					mounted={this.state.avatarsShown}
+					// This prop controls class assignment
+					fightBeingShown={this.state.fightBeingShown}
 				/>
 				{actionButtons}
 				{fightResolution}
@@ -172,7 +227,10 @@ const mapStateToProps = state => {
         characterTwo: state.characterTwo,
         round: state.round,
         winner: state.winner,
-        overallWinner: state.overallWinner
+        overallWinner: state.overallWinner,
+        playerOneId: state.playerOneId,
+        playerTwoId: state.playerTwoId,
+        appUserId: state.appUserId
     };
 }
 

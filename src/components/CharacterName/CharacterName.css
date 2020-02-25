@@ -1,13 +1,30 @@
-.CharacterName {
+.fightCharacterName {
 	position: absolute;
 	top: 40px;
 	border: 1px solid grey;
 }
 
-.left {
+.selectCharacterName {
+	width: 100px;
+	border: 1px solid grey;
+	position: fixed;
+	text-align: center;
+	bottom: 20px;
+	box-sizing: border-box;
+}
+
+.fightLeft {
 	left: 0;
 }
 
-.right {
+.fightRight {
 	right: 0;
+}
+
+.selectLeft {
+	left: 100px;
+}
+
+.selectRight {
+	right: 100px;
 }

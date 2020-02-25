@@ -9,6 +9,10 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 Avoids re-rendering the component with diff winners/actions
 for a different round than is supposed to be displayed*/
 
+const shouldUpdateProps = (prevProps, nextProps) => {
+	return prevProps.fightBeingShown === nextProps.fightBeingShown;
+}
+
 const fightResolution = props =>  {
 
 	let fighterIcons = (
@@ -37,4 +41,4 @@ const fightResolution = props =>  {
 
 }
 
-export default fightResolution;
+export default React.memo(fightResolution, shouldUpdateProps);

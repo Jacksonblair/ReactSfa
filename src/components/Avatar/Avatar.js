@@ -5,8 +5,9 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 /* Checks to see if a fight is being shown.
 Avoids re-rendering the component with diff winners/actions
 for a different round than is supposed to be displayed*/
-const stillShowingFight = (prevProps, nextProps) => {
-	return prevProps.fightTriggered === nextProps.fightTriggered && prevProps.overallWinner === nextProps.overallWinner;
+const shouldUpdateProps = (prevProps, nextProps) => {
+	return prevProps.fightBeingShown === nextProps.fightBeingShown && prevProps.overallWinner === nextProps.overallWinner;
+	return false;
 }
 
 const avatar = (props) => {
@@ -15,7 +16,7 @@ const avatar = (props) => {
 	// Apply left and right classes..
 	// Animations if first mount, static if an update
 
-	if (!props.shown && !props.overallWinner && !props.fightTriggered) {
+	if (!props.mounted && !props.overallWinner && !props.fightBeingShown) {
 		if (props.player === 1) {
 			avatarClass = `${classes.Avatar} + ${classes.slideInLeft}`;
 		} else if (props.player === 2) {
@@ -29,9 +30,9 @@ const avatar = (props) => {
 		}	
 	}
 
-	// assign winner and loser (or tie)
-	if (props.fightTriggered && !props.overallWinner) {
-		log('[Avatar] FightTriggered && no overallWinner');
+	// if latest fight hasn't been shown, show it 
+	// .. Unless there is an overallWinner
+	if (props.fightBeingShown && !props.overallWinner) {
 		if (props.winner) {
 			if (props.player === props.winner) {
 				avatarClass = `${avatarClass} + ${classes.winner}`
@@ -43,10 +44,9 @@ const avatar = (props) => {
 		}
 	}
 
-	// assign overall winner/loser
+	// Show overall winner/loser
 	if (props.overallWinner) {
 		if (props.overallWinner === props.player) {
-			log('[Avatar] Player is overall winner')
 			avatarClass = `${avatarClass} + ${classes.overallWinner}`
 		} else {
 			avatarClass = `${avatarClass} + ${classes.overallLoser}`
@@ -70,4 +70,4 @@ const avatar = (props) => {
 
 }
 
-export default React.memo(avatar, stillShowingFight);
+export default React.memo(avatar, shouldUpdateProps);

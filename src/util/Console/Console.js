@@ -9,24 +9,30 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 // This component is a console for faking server events for testing
 // Before build, disable this component, and remove references in App.js
 
+//@IMPORTANT
+// appUserId is set on the front end.
+
 class Console extends Component {
 
     state = {
-        screen: 'NEXT',
+        screen: 'SELECT',
+        playerOneId: 'URIG1234',
+        playerTwoId: null,
+        playerOneUsername: '',
+        playerTwoUsername: '',
         timer: 10,
         playerOneHp: 3,
         playerTwoHp: 3,
         playerOneActions: [],
         playerTwoActions: [],
-        playerOneUsername: '',
-        playerTwoUsername: '',
         round: 1,
         winner: [],
         overallWinner: null,
         characterOne: "test",
         characterTwo: "test",
         nextPlayerOne: 'asdasd123',
-        nextPlayerTwo: 'asda12312'
+        nextPlayerTwo: 'asda12312',
+        characters: ['fighter01', 'fighter02', 'fighter03', 'fighter04', 'fighter05', 'fighter06']
     }
 
     componentDidMount = () => {

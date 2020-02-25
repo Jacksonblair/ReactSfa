@@ -7,11 +7,19 @@ import Scroller from './Scroller/Scroller';
 
 const characterSelectButtons = props => {
 
+	let buttons = props.characters.map((value, index) => {
+		return <CharacterSelectButton 
+			mouseEnter={props.mouseEnter} 
+			mouseLeave={props.mouseLeave}
+			index={index} 
+			selected={props.selected}
+			key={index}/>
+	})
+
 	return (
 		<div className={classes.SelectButtons}>
 			<Scroller scroll={props.scroll}>
-				<CharacterSelectButton index={2} selected={props.selected}/>
-				<CharacterSelectButton index={1} selected={props.selected}/>
+				{buttons}
 			</Scroller>
 		</div>
 	)

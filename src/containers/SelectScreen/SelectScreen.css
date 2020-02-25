@@ -14,3 +14,13 @@
 	text-align: center;
 	margin: 0px;
 }
+
+.hoveredCharacter {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0;
+	transform: 0.5s all;
+	padding: 0;
+	margin: 0;
+}

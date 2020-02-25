@@ -1,0 +1,16 @@
+.SelectedCharacter {
+	height: 100%;
+	width: 120px;
+	border: 1px solid grey;
+	box-sizing: border-box;
+	background: salmon;
+	position: absolute;
+}
+
+.left {
+	left: 15%;
+}
+
+.right {
+	right: 15%;
+}

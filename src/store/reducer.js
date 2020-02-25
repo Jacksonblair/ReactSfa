@@ -3,6 +3,9 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 
 const initialState = {
 	screen: null,
+	appUserId: null,
+	playerOneId: null,
+	playerTwoId: null,
 	playerOneUsername: null,
 	playerTwoUsername: null,
     playerOneHp: 3,
@@ -42,7 +45,15 @@ const reducer = (state = initialState, action) => {
 				characterOne: action.payload.gameState.characterOne,
 				characterTwo: action.payload.gameState.characterTwo,
 		        nextPlayerOne: action.payload.gameState.nextPlayerOne,
-		        nextPlayerTwo: action.payload.gameState.nextPlayerTwo
+		        nextPlayerTwo: action.payload.gameState.nextPlayerTwo,
+		        playerOneId: action.payload.gameState.playerOneId,
+		        playerTwoId: action.payload.gameState.playerOneId,
+		        characters: [...action.payload.gameState.characters]
+			}
+		case actionTypes.PLAYER_AUTH:
+			return{
+				...state,
+				appUserId: action.payload.userId
 			}
 	}
 	return state;

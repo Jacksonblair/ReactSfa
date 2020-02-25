@@ -1,0 +1,40 @@
+.SneezeGuard {
+	height: 300px;
+	width: 480px;
+	position: absolute;
+	transition: 1s all;
+	opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.backdrop {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: black;
+	opacity: 0.5;
+}
+
+.text {
+	text-align: center;
+	color: white;
+	position: absolute;
+	font-size: 1.5rem;
+	width: 100%;
+	height: 10%;
+	top: 30%;
+}
+
+.SneezeGuard:hover {
+	opacity: 1;
+}
+
+.playButton {
+	position: absolute;
+	font-size: 1.5rem;
+	width: 20%;
+	left: 40%;
+	top: 60%;
+}

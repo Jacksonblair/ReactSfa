@@ -4,12 +4,14 @@
 
 :global .screen {
 	background: white;
-	height: 300px;
-	width: 480px;
+	height: 100%;
+	width: 100%;
 	opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
-    overflow: hidden;
 }
 
 :global .fadeIn {
@@ -28,4 +30,14 @@
 @keyframes :global(fadeOut) {
 	0% {opacity: 1;}
 	100% {opacity: 0;}
+}
+
+.view {
+    height: 300px;
+    width: 480px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
 }

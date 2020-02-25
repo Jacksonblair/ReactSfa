@@ -2,24 +2,36 @@ import React from 'react';
 import classes from './CharacterName.css';
 const log = msg => window.Twitch.ext.rig.log(msg);
 
-const username = props => {
+const characterName = props => {
 
 	let characterName = null;
 	let characterNameClass = null;
 
-	// check for username, else set default
-	characterName = props.characterName ? props.characterName : "CHARACTER";
+	// check 'screen' that characterName is in
+	if (props.screen === "SELECT") {
+		characterNameClass = classes.selectCharacterName
+		if (props.left) {
+			characterNameClass = `${characterNameClass} + ${classes.selectLeft}`
+		} else {
+			characterNameClass = `${characterNameClass} + ${classes.selectRight}`		
+		}
+	} else if (props.screen === "FIGHT") {
+		characterNameClass = classes.fightCharacterName
+		if (props.left) {
+			characterNameClass = `${characterNameClass} + ${classes.fightLeft}`
+		} else {
+			characterNameClass = `${characterNameClass} + ${classes.fightRight}`		
+		}
+	}
 
-	// add left/right specific styles
-	characterNameClass = props.left ? 
-		`${classes.CharacterName} + ${classes.left}`
-		: `${classes.CharacterName} + ${classes.right}`;
+
+
 
 	return (
 		<React.Fragment>
-			<p className={characterNameClass}> {characterName} </p>
+			<p className={characterNameClass}> {props.character} </p>
 		</React.Fragment>
 	)
 }
 
-export default username;
+export default characterName;
