@@ -20,8 +20,8 @@ class NextScreen extends Component {
 		return (
 			<div className={this.props.class}> 
 				<h1 className={classes.nextHeader}> UP NEXT </h1>
-				<h1 className={leftPlayerClass}> {this.props.nextPlayerOne} </h1>
-				<h1 className={rightPlayerClass}> {this.props.nextPlayerTwo} </h1>
+				<h1 className={leftPlayerClass}> {this.props.playerOneUsername} </h1>
+				<h1 className={rightPlayerClass}> {this.props.playerTwoUsername} </h1>
 				<h1 className={classes.vs}> VS </h1>
 			</div>
 		)
@@ -32,8 +32,8 @@ class NextScreen extends Component {
 const mapStateToProps = state => {
     return {
         screen: state.screen,
-       	nextPlayerOne: state.nextPlayerOne,
-       	nextPlayerTwo: state.nextPlayerTwo
+        playerOneUsername: state.playerOneUsername,
+        playerTwoUsername: state.playerTwoUsername
     };
 }
 

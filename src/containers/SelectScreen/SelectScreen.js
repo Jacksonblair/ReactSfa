@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
+import axios from 'axios';
 
 // components
 import Username from '../../components/Username/Username';
@@ -21,7 +22,8 @@ class SelectScreen extends Component {
 		// local UI state
 		// Scroll tracks state of scrollbar, and sets it to center..
 		// ..of available characters on load
-		scroll: (Math.floor(this.props.characters.length / 2) - 2) * -25,
+		// might need to always round up/down?? idk math is hard
+		scroll: (Math.floor(this.props.characters.length / 2) - 1) * -25,
 		hoveredCharacterName: '',
 		clickedCharacterName: ''
 	}
@@ -34,8 +36,14 @@ class SelectScreen extends Component {
 		// Make ui scroll to selected character..
 		// ..and set character as 'last clicked'
 		this.setState({scroll: (charIndex - 1) * -25, clickedCharacterName: this.props.characters[charIndex]})
-		// @AXIOS - Replace with axios PUT(GET?) request later
-		log('[SelectScreen] player selected character index ' + charIndex);
+		axios.post('/select', {
+			character: this.props.characters[charIndex]
+		})
+		.then((res) => {
+			log(res);
+		}).catch((err) => {
+			log(err);
+		})
 	}
 
 	// These are for controlling the character scrolling functionality

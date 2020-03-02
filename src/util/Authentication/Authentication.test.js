@@ -32,7 +32,7 @@ describe('makeCall tests', ()=>{
         return expect(auth.makeCall('htts://api')).rejects.toBeDefined()
     })
 
-    test('rejecsts on bad credentials',async ()=>{
+    test('rejects on bad credentials',async ()=>{
         return expect(auth.makeCall('https://google.com')).rejects.toBeDefined()
     })
 })

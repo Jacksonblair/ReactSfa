@@ -15,9 +15,9 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class Console extends Component {
 
     state = {
-        screen: 'SELECT',
-        playerOneId: 'URIG1234',
-        playerTwoId: null,
+        screen: 'START',
+        playerOneId: 'U265737932',
+        playerTwoId: 'U265737932',
         playerOneUsername: '',
         playerTwoUsername: '',
         timer: 10,
@@ -32,16 +32,16 @@ class Console extends Component {
         characterTwo: "test",
         nextPlayerOne: 'asdasd123',
         nextPlayerTwo: 'asda12312',
-        characters: ['fighter01', 'fighter02', 'fighter03', 'fighter04', 'fighter05', 'fighter06']
+        characters: ['fighter01', 'fighter02', 'fighter03', 'fighter04', 'fighter05']
     }
 
     componentDidMount = () => {
         // set initial 'screen' state
-        this.props.onGameStateUpdate(this.state)
+        // this.props.onGameStateUpdate(this.state)
     }
 
     componentDidUpdate = () => {
-        this.props.onGameStateUpdate(this.state);
+        // this.props.onGameStateUpdate(this.state);
     }
 
     getStartScreen = () => {

@@ -2,7 +2,7 @@ import * as actionTypes from './actions';
 const log = msg => window.Twitch.ext.rig.log(msg);
 
 const initialState = {
-	screen: null,
+	screen: "START",
 	appUserId: null,
 	playerOneId: null,
 	playerTwoId: null,
@@ -18,8 +18,8 @@ const initialState = {
 	round: 1,
 	winner: [],
 	overallWinner: null,
-	nextPlayerOne: '',
-	nextPlayerTwo: ''
+	characters: [''],
+	scores: ['']
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,10 +29,13 @@ const reducer = (state = initialState, action) => {
 
 	switch (action.type) {
 		case actionTypes.GAME_STATE_UPDATE:
+
+			let replaceCharacters = [...action.payload.gameState.characters];
+
 			return {
 				...state, 
 				screen: action.payload.gameState.screen,
-				timer: action.payload.gameState.timer,
+				// timer: action.payload.gameState.timer,
 				playerOneHp: action.payload.gameState.playerOneHp,
 				playerTwoHp: action.payload.gameState.playerTwoHp,
 				playerOneActions: [...action.payload.gameState.playerOneActions],
@@ -42,18 +45,18 @@ const reducer = (state = initialState, action) => {
 				round: action.payload.gameState.round,
 				winner: [...action.payload.gameState.winner],
 				overallWinner: action.payload.gameState.overallWinner,
-				characterOne: action.payload.gameState.characterOne,
-				characterTwo: action.payload.gameState.characterTwo,
-		        nextPlayerOne: action.payload.gameState.nextPlayerOne,
-		        nextPlayerTwo: action.payload.gameState.nextPlayerTwo,
+				characterOne: action.payload.gameState.playerOneCharacter,
+				characterTwo: action.payload.gameState.playerTwoCharacter,
 		        playerOneId: action.payload.gameState.playerOneId,
-		        playerTwoId: action.payload.gameState.playerOneId,
-		        characters: [...action.payload.gameState.characters]
+		        playerTwoId: action.payload.gameState.playerTwoId,
+		        characters: [...action.payload.gameState.characters],
+		        timer: action.payload.gameState.timer,
+		        scores: [...action.payload.gameState.scores]
 			}
 		case actionTypes.PLAYER_AUTH:
 			return{
 				...state,
-				appUserId: action.payload.userId
+				appUserId: action.payload.id
 			}
 	}
 	return state;

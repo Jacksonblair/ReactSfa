@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
+import axios from 'axios';
 
 // components
 import Username from '../../components/Username/Username';
@@ -33,8 +34,14 @@ class FightScreen extends Component {
 	}
 
 	actionClickedHandler = (action) => {
-		// @AXIOS - Replace with axios PUT(GET?) request later
-		log('[FightScreen] action clicked ' + action)
+		axios.post('/action', {
+			action: action
+		})
+		.then((res) => {
+			log(res);
+		}).catch((err) => {
+			log(err);
+		})
 	}
 
 	// if player loads

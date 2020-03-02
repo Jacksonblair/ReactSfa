@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
-
-// components
-
 
 // styles
 import classes from './ScoreScreen.css';
@@ -17,27 +13,31 @@ class ScoreScreen extends Component {
 	}
 
 	render() {
+
+		let ranks = [10].map((el) => {
+			return <p> {el} </p>
+		})
+
+		let scores = [10].map((el, index) => {
+			return <p> { this.props.scores[index] ? this.props.scores[index].score : '00000000' } </p>
+		})
+
+		let names = [10].map((el, index) => {
+			return <p> { this.props.scores[index] ? this.props.scores[index].display_name : 'NONE' } </p>
+		})
+
 		return (
 			<div className={this.props.class}> 
 				<div className={classes.HighScores}>
 					<h1 className={classes.scoreHeader}> HIGHSCORES </h1>
 					<div className={`${classes.column} + ${classes.rankColumn}`}> 
-						<p> 1 </p>
-						<p> 2 </p>
-						<p> 3 </p>
-						<p> 4 </p>
+						{ranks}
 					</div>
 					<div className={`${classes.column} + ${classes.nameColumn}`}> 
-						<p> BigBallsJim </p>
-						<p> sexyFacts4u </p>
-						<p> Hagrid </p>
-						<p> xXxSpehirothXXx </p>
+						{scores}
 					</div>
 					<div className={`${classes.column} + ${classes.scoreColumn}`}> 
-						<p> 9500 </p>
-						<p> 8200 </p>
-						<p> 4200 </p>
-						<p> 1800 </p>
+						{names}
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@ class ScoreScreen extends Component {
 const mapStateToProps = state => {
     return {
         screen: state.screen,
-       	highscores: state.highscores
+       	scores: state.scores
     };
 }
 

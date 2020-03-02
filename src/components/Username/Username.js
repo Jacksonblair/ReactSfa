@@ -43,7 +43,7 @@ const username = props => {
 
 	return (
 		<React.Fragment>
-			<p className={usernameClass}> {username} </p>
+			<p className={usernameClass}> {username.toUpperCase()} </p>
 		</React.Fragment>
 	)
 }

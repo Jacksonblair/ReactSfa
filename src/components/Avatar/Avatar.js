@@ -17,12 +17,14 @@ const avatar = (props) => {
 	// Animations if first mount, static if an update
 
 	if (!props.mounted && !props.overallWinner && !props.fightBeingShown) {
+		log('[Avatar] First mount')
 		if (props.player === 1) {
 			avatarClass = `${classes.Avatar} + ${classes.slideInLeft}`;
 		} else if (props.player === 2) {
 			avatarClass = `${classes.Avatar} + ${classes.slideInRight}`;
 		}	
 	} else {
+		log('[Avatar] Already mounted')
 		if (props.player === 1) {
 			avatarClass = `${classes.Avatar} + ${classes.left}`;
 		} else if (props.player === 2) {
@@ -33,6 +35,7 @@ const avatar = (props) => {
 	// if latest fight hasn't been shown, show it 
 	// .. Unless there is an overallWinner
 	if (props.fightBeingShown && !props.overallWinner) {
+		log('[Avatar] Showing fight')
 		if (props.winner) {
 			if (props.player === props.winner) {
 				avatarClass = `${avatarClass} + ${classes.winner}`
@@ -46,6 +49,7 @@ const avatar = (props) => {
 
 	// Show overall winner/loser
 	if (props.overallWinner) {
+		log('[Avatar] Overwall winner')
 		if (props.overallWinner === props.player) {
 			avatarClass = `${avatarClass} + ${classes.overallWinner}`
 		} else {
@@ -55,10 +59,11 @@ const avatar = (props) => {
 
 	// Apply character classes
 	switch (props.character) {
-		case "test":
+		case "fighter01":
 			avatarClass = `${avatarClass} + ${classes.testCharacter}`;
 			break;
 		default:
+			avatarClass = `${avatarClass} + ${classes.testCharacter}`;
 			break;
 	}
 
