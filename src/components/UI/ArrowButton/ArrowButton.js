@@ -9,9 +9,11 @@ const arrowButton = props => {
 	`${classes.ArrowButton} + ${classes.left}`
 	: `${classes.ArrowButton} + ${classes.right}`
 
+	let tip = props.left? 'left' : 'right'
+
 	return (
 		<button className={arrowClass} onClick={props.clicked}>
-
+			{tip}
 		</button>
 	)
 }

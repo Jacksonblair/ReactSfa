@@ -4,7 +4,8 @@ import classes from './Logo.css';
 const logo = props => {
 	return (
 		<div className={classes.Logo}>
-			<h1> LOGO </h1>
+			<img className={classes.primary} src={require("../../assets/images/logo.png")}/>
+			<div className={classes.secondary}/>
 		</div>
 	)
 }

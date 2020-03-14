@@ -23,6 +23,8 @@ class Console extends Component {
         timer: 10,
         playerOneHp: 3,
         playerTwoHp: 3,
+        playerOneTurboHp: 3,
+        playerTwoTurboHp: 3,
         playerOneActions: [],
         playerTwoActions: [],
         round: 1,
@@ -32,16 +34,18 @@ class Console extends Component {
         characterTwo: "test",
         nextPlayerOne: 'asdasd123',
         nextPlayerTwo: 'asda12312',
-        characters: ['fighter01', 'fighter02', 'fighter03', 'fighter04', 'fighter05']
+        characters: ['fighter01', 'fighter02', 'fighter03', 'fighter04', 'fighter05'],
+        scores: [],
+        turboUsername: ''
     }
 
     componentDidMount = () => {
         // set initial 'screen' state
-        // this.props.onGameStateUpdate(this.state)
+        this.props.onGameStateUpdate(this.state)
     }
 
     componentDidUpdate = () => {
-        // this.props.onGameStateUpdate(this.state);
+        this.props.onGameStateUpdate(this.state);
     }
 
     getStartScreen = () => {

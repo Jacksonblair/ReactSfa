@@ -21,6 +21,7 @@ class StartScreen extends Component {
 	render() {
 		return (
 			<div className={this.props.class}> 
+				<div className={classes.background}/>	
 				<Logo />
 				<Username screen="START" username={this.props.playerOneUsername} left />
 				<Username screen="START" username={this.props.playerTwoUsername} />

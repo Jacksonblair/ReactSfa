@@ -1,6 +1,45 @@
 .Logo {
     margin: 0 auto;
+    margin-top: 70px;
     text-align: center;
-	height: 100px;
-	width: 200px;
+	height: 200px;
+	width: 300px;
+	/*background-image: url('~../../assets/images/logo.png');*/
+	background-repeat: no-repeat;
+}
+
+.primary {
+	object-fit: cover;
+}
+
+.secondary {
+    margin: 0 auto;
+	width: 228px;
+	height: 35px;
+	background-image: url('~../../assets/images/logoSecondarySheet.png');
+	animation: flash 4.5s step-start infinite;
+}
+
+@keyframes flash {
+	0% {
+		background-position: 0px 0px;
+	}
+	1% {
+		background-position: -228px 0px;
+	}
+	2% {
+		background-position: -456px 0px;
+	}
+	3% {
+		background-position: -684px 0px;
+	}
+	4% {
+		background-position: -912px 0px;
+	}
+	5% {
+		background-position: -1140px 0px;
+	}
+	6% {
+		background-position: 0px 0px;
+	}
 }

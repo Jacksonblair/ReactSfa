@@ -26,7 +26,8 @@ class FightScreen extends Component {
 		fightMessageShown: false,
 		screenReady: false,
 		fightBeingShown: false,
-		fightCanBeShown: true
+		fightCanBeShown: true,
+		lastAction: null
 	}
 
 	userIsPlayer() {
@@ -34,6 +35,10 @@ class FightScreen extends Component {
 	}
 
 	actionClickedHandler = (action) => {
+		// Store users selection locally
+		this.setState({lastAction: action});
+
+		// Send ajax request to server
 		axios.post('/action', {
 			action: action
 		})
@@ -84,7 +89,7 @@ class FightScreen extends Component {
 			// .. and is no longer being shown ..
 			setTimeout(() => {
 				log('[FightScreen] Fight stopped being shown!')
-				this.setState({fightBeingShown: false});
+				this.setState({fightBeingShown: false, lastAction: null}); // set last action back to default
 			}, 4000)
 		}
 	}
@@ -167,17 +172,17 @@ class FightScreen extends Component {
 		let actionButtons = null;
 		if (this.userIsPlayer() && !this.state.fightBeingShown && !this.props.overallWinner && this.state.screenReady) {
 			actionButtons = (
-				<ActionButtons clicked={(action) => this.actionClickedHandler(action)}/>
+				<ActionButtons lastAction={this.state.lastAction} clicked={(action) => this.actionClickedHandler(action)}/>
 			)
 		}
 
 		// If there is an overall winner, show winner message
 		let winnerMessage = null;
 		if (this.props.overallWinner) {
-			let theMessage = `Player ${this.props.overallWinner} wins!`
+			let theMessage = `${this.props.overallWinner === 1 ? this.props.playerOneUsername : this.props.playerTwoUsername } wins!`
 			winnerMessage = (
 				<Message type="WINNER">
-					{theMessage}
+					{theMessage.toUpperCase()}
 				</Message>
 			)
 		}
@@ -187,8 +192,8 @@ class FightScreen extends Component {
 			<div className={this.props.class}> 
 				<Username left screen="FIGHT" username={this.props.playerOneUsername} /> 
 				<Username screen="FIGHT" username={this.props.playerTwoUsername} /> 
-				<HpBars left hp={this.props.playerOneHp}/>
-				<HpBars hp={this.props.playerTwoHp}/>
+				<HpBars left hp={this.props.playerOneHp} turboHp={this.props.playerOneTurboHp}/>
+				<HpBars hp={this.props.playerTwoHp} turboHp={this.props.playerTwoTurboHp}/>
 				<CharacterName left screen="FIGHT" character={this.props.characterOne}/>
 				<CharacterName screen="FIGHT" character={this.props.characterTwo}/>
 				<Timer screen="FIGHT" timer={this.props.timer}/>
@@ -237,7 +242,9 @@ const mapStateToProps = state => {
         overallWinner: state.overallWinner,
         playerOneId: state.playerOneId,
         playerTwoId: state.playerTwoId,
-        appUserId: state.appUserId
+        appUserId: state.appUserId,
+        playerOneTurboHp: state.playerOneTurboHp,
+        playerTwoTurboHp: state.playerTwoTurboHp
     };
 }
 

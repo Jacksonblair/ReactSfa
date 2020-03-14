@@ -14,16 +14,19 @@ class ScoreScreen extends Component {
 
 	render() {
 
-		let ranks = [10].map((el) => {
-			return <p> {el} </p>
+		/*https://itnext.io/heres-why-mapping-a-constructed-array-doesn-t-work-in-javascript-f1195138615a*/
+		let arrayOfTen = [...Array(10)].map((_, i) => i);
+
+		let ranks = arrayOfTen.map((el) => {
+			return <React.Fragment><p> {el} </p></React.Fragment>
 		})
 
-		let scores = [10].map((el, index) => {
-			return <p> { this.props.scores[index] ? this.props.scores[index].score : '00000000' } </p>
+		let scores = arrayOfTen.map((el, index) => {
+			return <React.Fragment><p> { this.props.scores[index] ? this.props.scores[index].score : '00000000' } </p></React.Fragment>
 		})
 
-		let names = [10].map((el, index) => {
-			return <p> { this.props.scores[index] ? this.props.scores[index].display_name : 'NONE' } </p>
+		let names = arrayOfTen.map((el, index) => {
+			return <React.Fragment><p> { this.props.scores[index] ? this.props.scores[index].display_name : 'NONE' } </p></React.Fragment>
 		})
 
 		return (
@@ -34,10 +37,10 @@ class ScoreScreen extends Component {
 						{ranks}
 					</div>
 					<div className={`${classes.column} + ${classes.nameColumn}`}> 
-						{scores}
+						{names}
 					</div>
 					<div className={`${classes.column} + ${classes.scoreColumn}`}> 
-						{names}
+						{scores}
 					</div>
 				</div>
 			</div>

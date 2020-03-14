@@ -10,6 +10,7 @@ const characterSelectButton = props => {
 			onMouseLeave={() => props.mouseLeave()}
 			className={classes.selectButton} 
 			onClick={() => props.selected(props.index)}>
+			Character select button
 		</button>
 	)
 }

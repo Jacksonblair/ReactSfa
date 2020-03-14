@@ -1,0 +1,23 @@
+.full {
+	display: inline-block;
+	text-align: center;
+	width: 33%;
+	background: blue;
+}
+
+.empty {
+	display: inline-block;
+	text-align: center;
+	width: 33%;
+	background: grey;
+	animation: emptyBar 2s linear forwards;
+}
+
+@keyframes emptyBar {
+	0% { background: blue; }
+	20% { background: grey; }
+	40% { background: blue; }
+	60% { background: grey; }
+	80% { background: blue; }
+	100% { background: grey; }
+}

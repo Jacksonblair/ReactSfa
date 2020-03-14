@@ -1,5 +1,16 @@
 .App {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: UpHeavalPro, Arial, Helvetica, sans-serif;
+}
+
+.view {
+    height: 280px;
+    width: 480px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    background: black;
 }
 
 :global .screen {
@@ -32,12 +43,7 @@
 	100% {opacity: 0;}
 }
 
-.view {
-    height: 300px;
-    width: 480px;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
+@font-face {
+    font-family: UpHeavalPro;
+    src: url('./assets/fonts/UpheavalPro.ttf');
 }

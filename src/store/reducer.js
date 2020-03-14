@@ -12,6 +12,8 @@ const initialState = {
     playerTwoHp: 3,
 	playerOneActions: [],
 	playerTwoActions: [],
+	playerOneTurboHp: 0,
+	playerTwoTurboHp: 0,
 	characterOne: null,
 	characterTwo: null,
 	timer: 10,
@@ -19,7 +21,8 @@ const initialState = {
 	winner: [],
 	overallWinner: null,
 	characters: [''],
-	scores: ['']
+	scores: [''],
+	turboUsername: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -35,9 +38,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state, 
 				screen: action.payload.gameState.screen,
-				// timer: action.payload.gameState.timer,
+				timer: action.payload.gameState.timer,
 				playerOneHp: action.payload.gameState.playerOneHp,
 				playerTwoHp: action.payload.gameState.playerTwoHp,
+				playerOneTurboHp: action.payload.gameState.playerOneTurboHp,
+				playerTwoTurboHp: action.payload.gameState.playerTwoTurboHp,
 				playerOneActions: [...action.payload.gameState.playerOneActions],
 				playerTwoActions: [...action.payload.gameState.playerTwoActions],
 				playerOneUsername: action.payload.gameState.playerOneUsername,
@@ -51,7 +56,8 @@ const reducer = (state = initialState, action) => {
 		        playerTwoId: action.payload.gameState.playerTwoId,
 		        characters: [...action.payload.gameState.characters],
 		        timer: action.payload.gameState.timer,
-		        scores: [...action.payload.gameState.scores]
+		        scores: [...action.payload.gameState.scores],
+		        turboUsername: action.payload.gameState.turboUsername
 			}
 		case actionTypes.PLAYER_AUTH:
 			return{

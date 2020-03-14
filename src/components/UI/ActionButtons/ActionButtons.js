@@ -7,9 +7,9 @@ const actionButtons = props => {
 	return (
 		<React.Fragment>
 			<div className={classes.ActionButtons}> 
-				<ActionButton clicked={props.clicked} action="PA"/>
-				<ActionButton clicked={props.clicked} action="SC"/>
-				<ActionButton clicked={props.clicked} action="RO"/>
+				<ActionButton clicked={props.clicked} action="PA" lastAction={props.lastAction}/>
+				<ActionButton clicked={props.clicked} action="SC" lastAction={props.lastAction}/>
+				<ActionButton clicked={props.clicked} action="RO" lastAction={props.lastAction}/>
 			</div>
 		</React.Fragment>
 	)
