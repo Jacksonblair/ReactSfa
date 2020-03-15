@@ -6,16 +6,20 @@
 	position: absolute;
 }
 
-.Timer {
-	color: black;
-	position: absolute;
-	top: 0;
+.SelectTimer {
+	color: white;
+    position: absolute;
+    top: 10px;
+    font-size: 2.8rem;
+    padding: 0px;
+    margin: 0px;
+    text-shadow: 2px 2px 2px red;
 }
 
 .left {
-	left: 0;
+	left: 5px;
 }
 
 .right {
-	right: 0;
+	right: 5px;
 }

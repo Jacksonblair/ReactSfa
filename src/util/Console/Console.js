@@ -15,9 +15,9 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class Console extends Component {
 
     state = {
-        screen: 'START',
-        playerOneId: 'U265737932',
-        playerTwoId: 'U265737932',
+        screen: 'SELECT',
+        playerOneId: '',
+        playerTwoId: '',
         playerOneUsername: '',
         playerTwoUsername: '',
         timer: 10,

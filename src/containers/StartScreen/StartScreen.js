@@ -25,7 +25,6 @@ class StartScreen extends Component {
 				<Logo />
 				<Username screen="START" username={this.props.playerOneUsername} left />
 				<Username screen="START" username={this.props.playerTwoUsername} />
-				<button className={classes.playButton} onClick={this.props.clicked}> PRESS PLAY </button>
 			</div>
 		)
 	}

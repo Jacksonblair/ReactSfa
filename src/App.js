@@ -146,11 +146,9 @@ class App extends PureComponent {
 			// Check if to show sneezeGuard
 			let sneezeGuard = null;
 			// Check if user is either one of players
-			if (!this.userIsPlayer()) {
-			 // Also check if "START" screen. If so, don't need to show, as there is a play button on the start screen.
-				if (this.state.currentScreen !== "START")
-			    	sneezeGuard = <SneezeGuard hasPressedPlay={this.state.hasPressedPlay} clicked={this.clickedPlayHandler} />
-			}
+			// if (!this.userIsPlayer()) {
+		 //    	sneezeGuard = <SneezeGuard hasPressedPlay={this.state.hasPressedPlay} clicked={this.clickedPlayHandler} />
+			// }
 
 			let turboButton = null;
 			// check if can show Turbo button

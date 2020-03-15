@@ -14,8 +14,8 @@ const timer = props => {
 	switch (props.screen) {
 		case "SELECT":
 			timerClass = props.left ? 
-				`${classes.Timer} + ${classes.left}`
-				: `${classes.Timer} + ${classes.right}`;
+				`${classes.SelectTimer} + ${classes.left}`
+				: `${classes.SelectTimer} + ${classes.right}`;
 			break;
 		case "FIGHT":
 			timerClass = classes.FightTimer;

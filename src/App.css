@@ -14,15 +14,16 @@
 }
 
 :global .screen {
-	background: white;
-	height: 100%;
-	width: 100%;
-	opacity: 0;
+    height: 98%;
+    width: 98%;
+    opacity: 0;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 1%;
+    left: 1%;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    overflow: hidden;
+    border-radius: 20px;
 }
 
 :global .fadeIn {

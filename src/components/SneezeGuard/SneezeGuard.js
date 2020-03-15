@@ -10,15 +10,14 @@ const sneezeGuard = props => {
 	let msg = props.hasPressedPlay ? (
 		<React.Fragment>
 			<p className={classes.text}> 
-			You are in the queue.
+			You joined the queue.
 			</p>
 		</React.Fragment>
 	)
 	: ( 
 		<React.Fragment>
 			<p className={classes.text}> 
-			You are not currently a player. <br />
-			Press PLAY to join the queue. 				
+			Press PLAY to join.			
 			</p>
 			<button onClick={props.clicked} className={classes.playButton}> PLAY </button> 
 		</React.Fragment>

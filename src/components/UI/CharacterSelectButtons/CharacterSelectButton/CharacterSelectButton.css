@@ -1,8 +1,24 @@
-.selectButton {
+.button {
+    height: 100%;
+    width: 140px;
+    margin-left: -20px;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    background: none;
+    border: none;
+    outline: none;
+    background-position: 20px 0px;
+	background-image: url('~../../../../assets/images/characterSelectButtonBackground.png');
+	background-repeat: no-repeat;
+	transition: 0.3s all;
+}
+
+.button:hover {
+	background-image: url('~../../../../assets/images/characterSelectButtonBackgroundHovered.png');
+}
+
+.selectButtonBackground {
 	height: 100%;
-	width: 120px;
-	border: 1px solid grey;
-	display: inline-block;
-	box-sizing: border-box;
-	background: salmon;
+	width: 100%;
 }

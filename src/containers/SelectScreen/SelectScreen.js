@@ -123,7 +123,8 @@ class SelectScreen extends Component {
 
 		return (
 			<div className={this.props.class}> 
-				<h1 className={classes.selectHeader}> FIGHTER SELECT </h1>
+				<div className={classes.background}/>
+				<img className={classes.selectHeader} src={require("../../assets/images/fighterSelectHeader.png")}/>
 				{playerView}
 				{userView}
 				<Timer screen="SELECT" left timer={this.props.timer}/>

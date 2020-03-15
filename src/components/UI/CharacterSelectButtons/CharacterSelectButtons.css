@@ -1,9 +1,8 @@
 .SelectButtons {
 	width: 100%;
-	height: 60%;
-	border: 1px solid grey;
+	height: 150px;
 	box-sizing: border-box;
-	top: 20%;
+    top: 26%;
 	position: absolute;
 	overflow: hidden;
 }

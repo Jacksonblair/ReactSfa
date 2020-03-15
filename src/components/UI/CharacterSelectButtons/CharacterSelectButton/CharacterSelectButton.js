@@ -8,9 +8,8 @@ const characterSelectButton = props => {
 		<button 
 			onMouseEnter={() => props.mouseEnter(props.index)}
 			onMouseLeave={() => props.mouseLeave()}
-			className={classes.selectButton} 
+			className={classes.button} 
 			onClick={() => props.selected(props.index)}>
-			Character select button
 		</button>
 	)
 }
