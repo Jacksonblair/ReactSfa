@@ -4,7 +4,7 @@ import * as actionTypes from '../../store/actions';
 import axios from 'axios';
 
 // components
-import Username from '../../components/Username/Username';
+import UsernameBar from '../../components/UsernameBar/UsernameBar';
 import CharacterName from '../../components/CharacterName/CharacterName';
 import Timer from '../../components/Timer/Timer';
 import HpBars from '../../components/HpBars/HpBars';
@@ -143,7 +143,7 @@ class FightScreen extends Component {
 
 		// Allow fight message to show for x seconds
 		let fightMessage = null;
-		if (!this.state.fightMessageShown) {
+		if (!this.state.fightMessageShown && !this.props.overallWinner) {
 			let theMessage = `FIGHT!`
 			fightMessage = (
 				<Message type="FIGHT">
@@ -190,12 +190,10 @@ class FightScreen extends Component {
 
 		return (
 			<div className={this.props.class}> 
-				<Username left screen="FIGHT" username={this.props.playerOneUsername} /> 
-				<Username screen="FIGHT" username={this.props.playerTwoUsername} /> 
+				<div className={classes.background}/>
+				<UsernameBar playerOneUsername={this.props.playerOneUsername} playerTwoUsername={this.props.playerTwoUsername}/>
 				<HpBars left hp={this.props.playerOneHp} turboHp={this.props.playerOneTurboHp}/>
 				<HpBars hp={this.props.playerTwoHp} turboHp={this.props.playerTwoTurboHp}/>
-				<CharacterName left screen="FIGHT" character={this.props.characterOne}/>
-				<CharacterName screen="FIGHT" character={this.props.characterTwo}/>
 				<Timer screen="FIGHT" timer={this.props.timer}/>
 				<Avatar
 					winner={this.props.winner[this.props.round - 1]} 

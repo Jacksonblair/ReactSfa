@@ -1,23 +1,26 @@
 .full {
 	display: inline-block;
-	text-align: center;
-	width: 33%;
-	background: red;
+    text-align: center;
+    width: 33.3333%;
+    height: 100%;
+    background: #5d97ff;
 }
 
 .empty {
 	display: inline-block;
 	text-align: center;
 	width: 33%;
+	height: 100%;
 	background: grey;
 	animation: emptyBar 2s linear forwards;
 }
 
 @keyframes emptyBar {
-	0% { background: red; }
-	20% { background: grey; }
-	40% { background: red; }
-	60% { background: grey; }
-	80% { background: red; }
-	100% { background: grey; }
+	0% { background: #5d97ff; }
+	10% { background: white; }
+	20% { background: #5d97ff; }
+	30% { background: white; }
+	40% { background: #5d97ff; }
+	50% { background: white; width: 33%; }
+	100% { width: 0%; }
 }

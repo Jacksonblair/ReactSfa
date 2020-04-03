@@ -9,6 +9,7 @@ const hpBars = props => {
 
 	let hpBarsClass = null;
 	let turboHpBarsClass = null;
+	let turboTextClass = null;
 	let hpBarArray = [];
 	let turboHpBarArray = [];
 
@@ -17,8 +18,12 @@ const hpBars = props => {
 		`${classes.HpBars} + ${classes.left}`
 		: `${classes.HpBars} + ${classes.right}`;
 	turboHpBarsClass = props.left ? 
-		`${classes.TurboHpBars} + ${classes.left}`
-		: `${classes.TurboHpBars} + ${classes.right}`;
+		`${classes.TurboHpBars} + ${classes.turboLeft}`
+		: `${classes.TurboHpBars} + ${classes.turboRight}`;
+
+	turboTextClass = props.turboHp ? classes.full : classes.empty;
+	turboTextClass = props.left ? `${turboTextClass} + ${classes.turboTextLeft}`
+		: `${turboTextClass} + ${classes.turboTextRight}`
 
 
 	switch(props.turboHp) {
@@ -62,6 +67,7 @@ const hpBars = props => {
 	return (
 		<React.Fragment>
 			<div className={hpBarsClass}>
+				<div className={classes.innerBar}/>
 				<HpBar value={hpBarArray[0]}/> 
 				<HpBar value={hpBarArray[1]}/> 
 				<HpBar value={hpBarArray[2]}/> 
@@ -71,6 +77,7 @@ const hpBars = props => {
 				<TurboHpBar value={turboHpBarArray[1]}/> 
 				<TurboHpBar value={turboHpBarArray[2]}/> 
 			</div>
+			<p className={turboTextClass}> TURBO </p>
 		</React.Fragment>
 	)
 }

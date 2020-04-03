@@ -29,7 +29,7 @@ const characterName = props => {
 
 	return (
 		<React.Fragment>
-			<p className={characterNameClass}> {props.character} </p>
+			<p className={characterNameClass}> {/*props.character*/} CHARACTER </p>
 		</React.Fragment>
 	)
 }

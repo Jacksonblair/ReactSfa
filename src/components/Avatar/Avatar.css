@@ -2,13 +2,14 @@
 	position: absolute;
 	bottom: 0;
 	box-sizing: border-box;
-	height: 180px;
-	width: 180px;
-	border: 1px solid grey;
+	height: 135px;
+	width: 135px;
+	background-size: cover;
 }
 
 .left {
 	left: 0;
+    transform: scaleX(-1);
 }
 
 .right {
@@ -20,7 +21,7 @@
 }
 
 .loser {
-	animation: loser 3s step-start 2s;
+	animation: loser 3s step-start 2s, hit 3s linear 2s;
 }
 
 .tie {
@@ -41,76 +42,75 @@
 
 .slideInLeft {
 	animation: slideInLeft 2s ease-out forwards;
+    transform: scaleX(-1);
 }
 
 .testCharacter {
-	background-image: url('~../../assets/images/sprites_testCharacter.png');
+	background-image: url('~../../assets/images/koalaSheet.png');
 }	
 
 @keyframes winner {
 	0% {
-		border: 5px solid green;
 		background-position: -180px 0px;
 	}
-	20% {
-		background-position: 0px 0px;
-	}
-	40% {
+	100% {
 		background-position: -180px 0px;
-	}
-	60% {
-		background-position: 0px 0px;
 	}
 }
 
+@keyframes hit {
+	0% { margin: 0px 0px; }
+	19% { margin: 0px 0px; }
+	20% { margin: 0px -15px; }
+	60% { margin: 0px 0px; }
+	100% { margin: 0px 0px; }
+}
+
 @keyframes loser {
-	0% {
-		border: 5px solid red;
-		background-position: -540px 0px;
-	}
-	20% {
-		background-position: -360px 0px;
-	}
-	40% {
-		background-position: -540px 0px;
-	}
-	60% {
-		background-position: -360px 0px;
-	}
+	0% { background-position: -360px 0px; }
+	20% { background-position: -360px 0px; }
+	20.1% { background-position: -540px 0px; }
+	22.5% { background-position: -360px 0px; }
+	25% { background-position: -540px 0px; }
+	27.5% { background-position: -360px 0px; }
+	30% { background-position: -540px 0px; }
+	32.5% { background-position: -360px 0px; }
+	35% { background-position: -540px 0px; }
+	37.5% { background-position: -360px 0px; }
+	40% { background-position: -540px 0px; }
+	42.5% { background-position: -360px 0px; }
+	45% { background-position: -540px 0px; }
+	47.5% { background-position: -360px 0px; }
+	50% { background-position: -540px 0px; }
+	52.5% { background-position: -360px 0px; }
+	100% { background-position: -360px 0px; }
 }
 
 @keyframes tie {
 	0% {
-		border: 5px solid yellow;
-		background-position: -720px 0px;
+		background-position: -360px 0px;
 	}
-	20% {
-		background-position: -900px 0px;
-	}
-	40% {
-		background-position: -720px 0px;
-	}
-	60% {
-		background-position: -900px 0px;
+	100% {
+		background-position: -360px 0px;
 	}
 }
 
 @keyframes overallWinner {
 	100% {
-		background-position: -1080px 0px;
+		background-position: -720px 0px;
 	}
 }
 
 @keyframes overallLoser {
 	0% {
-		background-position: -1260px 0px;
+		background-position: -900px 0px;
 	}
 	30% {
 		bottom: 0;
 	}
 	100% {
 		bottom: -180px;
-		background-position: -1260px 0px
+		background-position: -900px 0px
 	}
 }
 

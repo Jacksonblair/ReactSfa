@@ -32,11 +32,6 @@ const username = props => {
 				`${classes.Select} + ${classes.selectLeft}`
 				: `${classes.Select} + ${classes.selectRight}`;
 			break;
-		case "FIGHT":
-			usernameClass = props.left ? 
-				`${classes.Fight} + ${classes.fightLeft}`
-				: `${classes.Fight} + ${classes.fightRight}`;
-			break;
 		case "NEXT":
 			break;
 	}

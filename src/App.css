@@ -3,14 +3,14 @@
 }
 
 .view {
-    height: 280px;
-    width: 480px;
+    height: 220px;
+    width: 380px;
     overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
     box-sizing: border-box;
-    background: black;
+    background: none;
 }
 
 :global .screen {

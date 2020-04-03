@@ -15,16 +15,16 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class Console extends Component {
 
     state = {
-        screen: 'SELECT',
+        screen: 'FIGHT',
         playerOneId: '',
         playerTwoId: '',
-        playerOneUsername: '',
-        playerTwoUsername: '',
+        playerOneUsername: 'USERNAME',
+        playerTwoUsername: 'USERNAME',
         timer: 10,
         playerOneHp: 3,
         playerTwoHp: 3,
-        playerOneTurboHp: 3,
-        playerTwoTurboHp: 3,
+        playerOneTurboHp: 0,
+        playerTwoTurboHp: 0,
         playerOneActions: [],
         playerTwoActions: [],
         round: 1,
@@ -99,6 +99,30 @@ class Console extends Component {
             log(`[Console] Player ${player} has 0 hp`);
             log(`[Console] Overall winner is player ${player === 1 ? 2 : 1}`);
             this.setState({overallWinner: player === 1 ? 2 : 1})
+        }
+    }
+
+    incrementPlayerTurbo = (player, turbo) => {
+        if (turbo + 1 <= 3) {
+            if (player === 1) {
+                this.setState({playerOneTurboHp: turbo  + 1})
+            } else {
+                this.setState({playerTwoTurboHp: turbo + 1})
+            }
+        }
+    }
+
+    decrementPlayerTurbo = (player, turbo) => {
+        if (turbo - 1 >= 0) {
+            if (player === 1) {
+                this.setState({playerOneTurboHp: turbo - 1})
+            } else {
+                this.setState({playerTwoTurboHp: turbo - 1})
+            }
+        }
+
+        if (turbo - 1 === 0) {
+            log(`[Console] Player ${player} has 0 turbo`);
         }
     }
 
@@ -186,7 +210,13 @@ class Console extends Component {
                     <button onClick={() => this.decrementPlayerHp(1, this.state.playerOneHp)}> - HP(1) </button>
                     <button onClick={() => this.incrementPlayerHp(1, this.state.playerOneHp)}> + HP(1)</button>
                     <button onClick={() => this.decrementPlayerHp(2, this.state.playerTwoHp)}> - HP(2) </button>
-                    <button onClick={() => this.incrementPlayerHp(2, this.state.playerTwoHp)}> + HP(2)</button>
+                    <button onClick={() => this.incrementPlayerHp(2, this.state.playerTwoHp)}> + HP(2)</button>             
+                </div>
+                <div>       
+                    <button onClick={() => this.decrementPlayerTurbo(1, this.state.playerOneTurboHp)}> - Turbo(1) </button>
+                    <button onClick={() => this.incrementPlayerTurbo(1, this.state.playerOneTurboHp)}> + Turbo(1)</button>
+                    <button onClick={() => this.decrementPlayerTurbo(2, this.state.playerTwoTurboHp)}> - Turbo(2) </button>
+                    <button onClick={() => this.incrementPlayerTurbo(2, this.state.playerTwoTurboHp)}> + Turbo(2)</button>
                 </div>
                 <div className={classes.roundConsole}> 
                     <div>

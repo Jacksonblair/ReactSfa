@@ -9,9 +9,7 @@ const hpBar = props => {
 
 	return (
 		<React.Fragment>
-			<div className={hpBarClass}>
-				{props.value}
-			</div>
+			<div className={hpBarClass}/>
 		</React.Fragment>
 	)
 }

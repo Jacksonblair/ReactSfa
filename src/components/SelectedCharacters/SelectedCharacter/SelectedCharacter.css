@@ -1,16 +1,21 @@
 .SelectedCharacter {
-	height: 100%;
-	width: 120px;
-	border: 1px solid grey;
-	box-sizing: border-box;
-	background: salmon;
-	position: absolute;
+    top: 10%;
+    height: 100%;
+    width: 140px;
+    position: absolute;
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    outline: none;
+    background-position: 20px 0px;
+	background-image: url('~../../../assets/images/characterSelectButtonBackground.png');
+	background-repeat: no-repeat;
 }
 
 .left {
-	left: 15%;
+	left: 10%;
 }
 
 .right {
-	right: 15%;
+    right: 15%;
 }

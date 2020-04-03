@@ -4,14 +4,14 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 
 const turboHpBar = props => {
 
-	let turboHpBar = props.value === 1 ?
+	//@IMPORTANT - check if there is turbo at all, to prevent flash animation.
+
+	let turboHpBarClass = props.value === 1 ?
 	classes.full : classes.empty;
 
 	return (
 		<React.Fragment>
-			<div className={turboHpBar}>
-				{props.value}
-			</div>
+			<div className={turboHpBarClass}/>
 		</React.Fragment>
 	)
 }

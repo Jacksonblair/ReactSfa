@@ -24,8 +24,8 @@ class SelectScreen extends Component {
 		// ..of available characters on load
 		// might need to always round up/down?? idk math is hard
 		scroll: (Math.floor(this.props.characters.length / 2) - 1) * -25,
-		hoveredCharacterName: '',
-		clickedCharacterName: ''
+		hoveredCharacterName: 'MAKE SELECTION',
+		clickedCharacterName: 'MAKE SELECTION'
 	}
 
 	userIsPlayer = () => {
@@ -109,7 +109,7 @@ class SelectScreen extends Component {
 		playerView = (
 			<React.Fragment>
 				<p>{this.state.scroll}</p>
-				<CharacterSelectButtons 
+				<CharacterSelectButtons
 					characters={this.props.characters}
 					scroll={this.state.scroll} 
 					mouseEnter={(index) => this.onMouseEnterHandler(index)}

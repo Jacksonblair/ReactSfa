@@ -18,7 +18,7 @@ module.exports = (_env,argv)=> {
     VideoOverlay:{
       path:"./src/views/VideoOverlay.js",
       outputHtml:"video_overlay.html",
-      build:false
+      build:true
     },
     Panel:{
       path:"./src/views/Panel.js",

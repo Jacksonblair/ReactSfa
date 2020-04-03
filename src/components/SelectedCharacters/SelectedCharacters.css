@@ -1,9 +1,8 @@
 .SelectedCharacters {
 	width: 100%;
 	height: 60%;
-	border: 1px solid grey;
 	box-sizing: border-box;
-	top: 20%;
+    top: 18%;
 	position: absolute;
 	overflow: hidden;
 }

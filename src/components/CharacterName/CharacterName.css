@@ -5,12 +5,15 @@
 }
 
 .selectCharacterName {
-	width: 100px;
-	border: 1px solid grey;
-	position: fixed;
-	text-align: center;
-	bottom: 20px;
-	box-sizing: border-box;
+    width: 40%;
+    position: fixed;
+    text-align: center;
+    bottom: 30px;
+    box-sizing: border-box;
+    font-size: 1.9rem;
+    margin: 0px;
+    color: #f9d37c;
+    text-shadow: 1px 1px 1px red;
 }
 
 .fightLeft {
@@ -22,9 +25,9 @@
 }
 
 .selectLeft {
-	left: 100px;
+	left: 0;
 }
 
 .selectRight {
-	right: 100px;
+	right: 0;
 }

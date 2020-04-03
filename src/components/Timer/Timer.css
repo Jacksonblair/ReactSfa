@@ -1,25 +1,30 @@
 .FightTimer {
-	width: 20%;
-	top: 0;
-	left: 40%;
-	text-align: center;
-	position: absolute;
+    width: 20%;
+    top: 6%;
+    left: 40%;
+    text-align: center;
+    position: absolute;
+    color: white;
+    font-size: 2.4rem;
+    margin: 0;
+    font-weight: normal;
 }
 
 .SelectTimer {
 	color: white;
     position: absolute;
-    top: 10px;
-    font-size: 2.8rem;
+    top: 12px;
+    font-size: 2.1rem;
     padding: 0px;
     margin: 0px;
     text-shadow: 2px 2px 2px red;
+    font-weight: normal;
 }
 
 .left {
-	left: 5px;
+	left: 10px;
 }
 
 .right {
-	right: 5px;
+	right: 10px;
 }

@@ -1,23 +1,51 @@
 .full {
-	display: inline-block;
-	text-align: center;
-	width: 33%;
-	background: blue;
+    display: inline-block;
+    width: 22px;
+    margin-left: 3%;
+    height: 16px;
+	animation: fadeIn 1s linear, pulse 1s linear infinite;
+	opacity: 1;
 }
 
 .empty {
 	display: inline-block;
-	text-align: center;
-	width: 33%;
-	background: grey;
-	animation: emptyBar 2s linear forwards;
+    width: 22px;
+    margin-left: 3%;
+    height: 16px;
+    background: white;
+    opacity: 0.3;
+    animation: emptyBar 2s;
+}
+
+@keyframes pulse {
+	0% {
+		background: #efa3ff;
+	}
+	50% {
+		background: #e464ff;
+	}
+	100% {
+		background: #efa3ff;
+	}
+}
+
+@keyframes fadeIn {
+	0% { opacity: 0.3; }
+	60% { background: white; }
+	100% { opacity: 1; }
 }
 
 @keyframes emptyBar {
-	0% { background: blue; }
-	20% { background: grey; }
-	40% { background: blue; }
-	60% { background: grey; }
-	80% { background: blue; }
-	100% { background: grey; }
+	0% { opacity: 1; background: white; border-color: white; }
+	5% { background: #e464ff; border-color: #03a1ce ;}
+	10% { background: white; border-color: white; }
+	15% { background: #e464ff; border-color: #03a1ce ; }
+	20% { background: white; border-color: white; }	
+	25% { background: #e464ff; border-color: #03a1ce ; }
+	30% { background: white; border-color: white; }
+	35% { background: #e464ff; border-color: #03a1ce ; }
+	40% { background: white; border-color: white; }
+	45% { background: #e464ff; border-color: #03a1ce ; }
+	50% { background: white; border-color: white; }
+	100% { opacity: 0.3; }
 }

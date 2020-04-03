@@ -1,34 +1,26 @@
 .Start {
-    width: 230px;
+    width: 50%;
     height: 30px;
     margin: 0px;
     position: fixed;
     text-align: center;
-    bottom: 25px;
+    bottom: 10px;
     box-sizing: border-box;
     color: white;
-    font-size: 2rem;
+    font-size: 1.7vw;
     text-shadow: 1px 1px 1px red;
 }
 
 .Select {
-	width: 100px;
-	border: 1px solid grey;
-	position: fixed;
-	text-align: center;
-	bottom: 0;
-	box-sizing: border-box;
-}
-
-.Fight {
-	width: 100px;
-	height: 30px;
-	border: 1px solid grey;
-	position: fixed;
-	text-align: center;
-	top: 0;
-	box-sizing: border-box;
-	margin: 0;
+	width: 40%;
+    position: fixed;
+    text-align: center;
+    bottom: 7px;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 2.1rem;
+    color: white;
+    text-shadow: 1px 1px 1px red;
 }
 
 .startLeft {
@@ -40,17 +32,9 @@
 }
 
 .selectLeft {
-	left: 100px;
+	left: 5%;
 }
 
 .selectRight {
-	right: 100px;
-}
-
-.fightLeft {
-	left: 0;
-}
-
-.fightRight {
-	right: 0;
+	right: 5%;
 }

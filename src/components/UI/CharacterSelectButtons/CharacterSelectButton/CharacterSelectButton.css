@@ -1,6 +1,6 @@
 .button {
-    height: 100%;
-    width: 140px;
+    height: 124px;
+    width: 90px;
     margin-left: -20px;
     display: inline-block;
     box-sizing: border-box;
@@ -18,7 +18,20 @@
 	background-image: url('~../../../../assets/images/characterSelectButtonBackgroundHovered.png');
 }
 
+.button:focus {
+    animation: clicked 0.3s step-start infinite;
+}
+
 .selectButtonBackground {
 	height: 100%;
 	width: 100%;
+}
+
+@keyframes clicked {
+    1% {
+        background-image: url('~../../../../assets/images/characterSelectButtonBackground.png');
+    }
+    50% {
+        background-image: url('~../../../../assets/images/characterSelectButtonBackgroundHovered.png');
+    }
 }
