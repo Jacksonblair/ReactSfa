@@ -74,36 +74,25 @@ class App extends PureComponent {
 					this.props.onPlayerAuth(auth.userId);
 					// console.log(auth.userId);
 					// console.log(auth);
+
+
+					/* Get character roster from channel config
+					Store roster in central store */
+					let roster = this.twitch.configuration.broadcaster
+					if (roster) {
+						this.props.onRosterUpdate(JSON.parse(roster.content))
+						console.log(roster.content)						
+					}
 				}
 			})
 
 			if (this.twitch.features.isBitsEnabled) {
-				console.log('bits is enabled for this channel');
+				console.log('bits is enabled for this channel')
 			} else {
 				console.log('bits not enabled')
 			}
 
-			// this.twitch.configuration.set({ 
-			// 	segment: 'broadcaster',
-			// 	version: '1.0.0',
-			// 	content: 'hello'
-			// })
 
-			// console.log(this.twitch.configuration);
-
-			// Get character configuration from twitch
-			// Set characters according to character config
-				// If character is a standard one
-				// Load sprite from app
-				// Else, load sprite from link
-
-			// need to make a CONFIG view for customising characters first.
-
-
-			// Transaction functionality.
-			// this.twitch.bits.getProducts().then(function(products) {
-		 //   		console.log(products);
-			// });
 
 			this.twitch.bits.onTransactionComplete((transaction) => {
 				console.log(transaction);
@@ -147,7 +136,7 @@ class App extends PureComponent {
 
 	componentWillUnmount = () => {
 			if(this.twitch){
-					this.twitch.unlisten('broadcast', ()=>console.log('successfully unlistened'))
+				this.twitch.unlisten('broadcast', ()=>console.log('successfully unlistened'))
 			}
 	}
 
@@ -156,10 +145,10 @@ class App extends PureComponent {
 			// console.log(this.props.playerTwoActions)
 			// screen fade in/out functionality
 			if (this.props.screen !== prevProps.screen) {
-					this.setState({screenClass: "screen fadeOut"})
-					setTimeout(() => {
-							this.setState({currentScreen: this.props.screen, screenClass: "screen fadeIn"})
-					}, 1000)
+				this.setState({screenClass: "screen fadeOut"})
+				setTimeout(() => {
+						this.setState({currentScreen: this.props.screen, screenClass: "screen fadeIn"})
+				}, 1000)
 			}
 	}
 
@@ -177,9 +166,9 @@ class App extends PureComponent {
 		// Check if to show sneezeGuard
 		let sneezeGuard = null;
 		// Check if user is either one of players
-		if (!this.userIsPlayer()) {
+/*		if (!this.userIsPlayer()) {
 	    	sneezeGuard = <SneezeGuard canPressPlay={this.state.canPressPlay} clicked={this.clickedPlayHandler} queue={this.props.queue} appUserId={this.props.appUserId}/>
-		}
+		}*/
 
 		// let turboButton = null;
 		// check if can show Turbo button
@@ -253,7 +242,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 		return {
 			onPlayerAuth: (id) => dispatch({type: actionTypes.PLAYER_AUTH, payload: { id: id }}),
-			onGameStateUpdate: (gameState) => dispatch({type: actionTypes.GAME_STATE_UPDATE, payload: { gameState: gameState }})
+			onGameStateUpdate: (gameState) => dispatch({type: actionTypes.GAME_STATE_UPDATE, payload: { gameState: gameState }}),
+			onRosterUpdate: (roster) => dispatch({type: actionTypes.ROSTER_UPDATE, payload: { roster: roster }})
 		};
 }
 

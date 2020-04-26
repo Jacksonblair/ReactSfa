@@ -23,7 +23,7 @@ class SelectScreen extends Component {
 		// Scroll tracks state of scrollbar, and sets it to center..
 		// ..of available characters on load
 		// might need to always round up/down?? idk math is hard
-		scroll: (Math.floor(this.props.characters.length / 2) - 1) * -25,
+		scroll: (Math.floor(this.props.roster.length / 2) - 1) * -25,
 		hoveredCharacterName: 'MAKE SELECTION',
 		clickedCharacterName: 'MAKE SELECTION'
 	}
@@ -35,9 +35,9 @@ class SelectScreen extends Component {
 	characterSelectedHandler = (charIndex) => {
 		// Make ui scroll to selected character..
 		// ..and set character as 'last clicked'
-		this.setState({scroll: (charIndex - 1) * -25, clickedCharacterName: this.props.characters[charIndex]})
+		this.setState({scroll: (charIndex - 1) * -25, clickedCharacterName: this.props.roster[charIndex].name})
 		axios.post('/select', {
-			character: this.props.characters[charIndex]
+			character: this.props.roster[charIndex].name
 		})
 		.then((res) => {
 			log(res);
@@ -61,9 +61,9 @@ class SelectScreen extends Component {
 	}
 
 	// These functions are defined to show character names on hovering their portraits
-	onMouseEnterHandler = (charIndex) => {
-		if (this.props.characters[charIndex]) // if exists
-			this.setState({hoveredCharacterName: this.props.characters[charIndex]})
+	onMouseEnterHandler = (index) => {
+		if (this.props.roster[index]) // if exists
+			this.setState({hoveredCharacterName: this.props.roster[index].name})
 	}
 	onMouseLeaveHandler = () => {
 		// if character has been clicked, set name back to that after hover.
@@ -76,13 +76,13 @@ class SelectScreen extends Component {
 		let playerView = null;
 		let userView = null;
 		// Enable/disable player/user specific elements
-		if (this.userIsPlayer()) {
+		// if (this.userIsPlayer()) {
 			// Show scrolling character selection menu + character name
 			playerView = (
 				<React.Fragment>
 					<p>{this.state.scroll}</p>
 					<CharacterSelectButtons 
-						characters={this.props.characters}
+						roster={this.props.roster}
 						scroll={this.state.scroll} 
 						mouseEnter={(index) => this.onMouseEnterHandler(index)}
 						mouseLeave={this.onMouseLeaveHandler}
@@ -92,7 +92,7 @@ class SelectScreen extends Component {
 					<h1 className={classes.hoveredCharacter}> {this.state.hoveredCharacterName} </h1>
 				</React.Fragment>
 			)
-		} else {
+/*		} else {
 			userView = (
 				<React.Fragment>
 					<SelectedCharacters characterOne={this.props.characterOne} characterTwo={this.props.characterTwo}/>
@@ -104,7 +104,7 @@ class SelectScreen extends Component {
 				</React.Fragment>
 			)
 			// Show both characters portraits (non-player view)
-		} 
+		} */
 
 		return (
 			<div className={this.props.class}> 
@@ -130,7 +130,7 @@ const mapStateToProps = state => {
         characterTwo: state.characterTwo,
         timer: state.timer,
         appUserId: state.appUserId,
-        characters: state.characters
+        roster: state.roster
     };
 }
 

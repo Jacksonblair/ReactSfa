@@ -48,20 +48,20 @@
   ],
   "extensionViews": [
     {
-      "id": "1",
+      "id": "2",
       "label": "",
       "channelId": "62200832",
       "configurationAnchor": "video_overlay",
       "displayChannelName": "",
-      "type": "config",
+      "type": "video_overlay",
       "features": {
         "isBitsEnabled": true,
         "isChatEnabled": false,
         "isSubscriptionStatusAvailable": false
       },
-      "linked": true,
-      "linkedUserId": "265737932",
-      "mode": "config",
+      "linked": false,
+      "linkedUserId": "",
+      "mode": "viewer",
       "isPopout": false,
       "role": "Broadcaster",
       "orientation": "Portrait",

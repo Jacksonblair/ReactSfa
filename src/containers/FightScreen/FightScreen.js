@@ -8,7 +8,7 @@ import UsernameBar from '../../components/UsernameBar/UsernameBar';
 import CharacterName from '../../components/CharacterName/CharacterName';
 import Timer from '../../components/Timer/Timer';
 import HpBars from '../../components/HpBars/HpBars';
-import Avatar from '../../components/Avatar/Avatar';
+import Avatars from '../../components/Avatars/Avatars';
 import ActionButtons from '../../components/UI/ActionButtons/ActionButtons';
 import FightResolution from '../../components/FightResolution/FightResolution';
 import Message from '../../components/Message/Message';
@@ -198,23 +198,16 @@ class FightScreen extends Component {
 				<HpBars left hp={this.props.playerOneHp} turboHp={this.props.playerOneTurboHp}/>
 				<HpBars hp={this.props.playerTwoHp} turboHp={this.props.playerTwoTurboHp}/>
 				<Timer screen="FIGHT" timer={this.props.timer}/>
-				<Avatar
+				<Avatars 
 					winner={this.props.winner[this.props.round - 1]} 
 					overallWinner={this.props.overallWinner}
-					player={1}
-					character={this.props.characterOne}
+					characterOne={this.props.characterOne}
+					characterTwo={this.props.characterTwo}
 					mounted={this.state.avatarsShown}
 					// This prop controls class assignment
 					fightBeingShown={this.state.fightBeingShown}
-				/>				
-				<Avatar 
-					winner={this.props.winner[this.props.round - 1]} 
-					overallWinner={this.props.overallWinner}
-					player={2}
-					character={this.props.characterTwo}
-					mounted={this.state.avatarsShown}
-					// This prop controls class assignment
-					fightBeingShown={this.state.fightBeingShown}
+					round={this.props.round}
+					roster={this.props.roster}
 				/>
 				{actionButtons}
 				{fightResolution}
@@ -245,7 +238,8 @@ const mapStateToProps = state => {
         playerTwoId: state.playerTwoId,
         appUserId: state.appUserId,
         playerOneTurboHp: state.playerOneTurboHp,
-        playerTwoTurboHp: state.playerTwoTurboHp
+        playerTwoTurboHp: state.playerTwoTurboHp,
+        roster: state.roster
     };
 }
 

@@ -46,7 +46,7 @@
 }
 
 .testCharacter {
-	background-image: url('~../../assets/images/koalaSheet.png');
+	background-image: url('~../../../assets/images/koalaSheet.png');
 }	
 
 @keyframes winner {

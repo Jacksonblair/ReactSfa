@@ -20,7 +20,7 @@ const initialState = {
 	round: 1,
 	winner: [],
 	overallWinner: null,
-	characters: [''],
+	roster: [''],
 	scores: [''],
 	turboUsername: null,
 	queue: ['']
@@ -33,9 +33,6 @@ const reducer = (state = initialState, action) => {
 
 	switch (action.type) {
 		case actionTypes.GAME_STATE_UPDATE:
-
-			let replaceCharacters = [...action.payload.gameState.characters];
-
 			return {
 				...state, 
 				screen: action.payload.gameState.screen,
@@ -55,17 +52,22 @@ const reducer = (state = initialState, action) => {
 				characterTwo: action.payload.gameState.playerTwoCharacter,
 		        playerOneId: action.payload.gameState.playerOneId,
 		        playerTwoId: action.payload.gameState.playerTwoId,
-		        characters: [...action.payload.gameState.characters],
 		        timer: action.payload.gameState.timer,
 		        scores: [...action.payload.gameState.scores],
 		        turboUsername: action.payload.gameState.turboUsername,
 		        queue: [...action.payload.gameState.queue]
 			}
 		case actionTypes.PLAYER_AUTH:
-			return{
+			return {
 				...state,
 				appUserId: action.payload.id
 			}
+		case actionTypes.ROSTER_UPDATE:
+			return {
+				...state,
+				roster: [...action.payload.roster]
+			}
+
 	}
 	return state;
 }

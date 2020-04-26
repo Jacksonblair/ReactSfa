@@ -58,6 +58,14 @@ const avatar = (props) => {
 	}
 
 	// Apply character classes
+
+	/*
+		if props.default, check against default characters
+		else use url to mix inline style with avatarClass
+	*/
+
+
+
 	switch (props.character) {
 		case "fighter01":
 			avatarClass = `${avatarClass} + ${classes.testCharacter}`;
