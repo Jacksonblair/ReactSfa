@@ -1,12 +1,11 @@
 .Logo {
     margin: 0 auto;
-    margin-top: 35px;
+    margin-top: 70px;
     text-align: center;
 	height: 200px;
 	width: 300px;
 	/*background-image: url('~../../assets/images/logo.png');*/
 	background-repeat: no-repeat;
-	transform: scale(0.75);
 }
 
 .primary {

@@ -11,3 +11,20 @@
 	left: 0px;
     z-index: -69;
 }
+
+.waitingHeader {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 44px;
+    color: #76acff;
+    font-size: 28px;
+    margin: 0px;
+    animation: fade 1s step-start infinite;
+}
+
+@keyframes fade {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}

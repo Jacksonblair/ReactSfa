@@ -41,7 +41,7 @@
     display: inline-block;
     margin: 0;
     top: 48px;
-    left: 40px;
+    left: 73px;
     font-weight: normal;
     position: absolute;
     transform: skew(30deg);
@@ -54,7 +54,7 @@
     display: inline-block;
     margin: 0;
     top: 48px;
-    right: 38px;
+    right: 73px;
     font-weight: normal;
     position: absolute;
     transform: skew(-30deg);
@@ -71,7 +71,6 @@
 .empty {
     color: #f7b4d7;
     opacity: 0.5;
-    animation: empty 1s linear forwards;
 }
 
 .innerBar {
@@ -84,14 +83,6 @@
     background: #91d6ff;
 }
 
-@keyframes empty {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0.4;
-    }
-}
 
 @keyframes full {  
     0% { 

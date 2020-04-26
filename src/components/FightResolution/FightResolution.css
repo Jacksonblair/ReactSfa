@@ -1,37 +1,21 @@
 .Darkener {
-	background: grey;
+	background: black;
 	height: 100%;
 	width: 100%;
 	opacity: 0.5;
-	animation: dissapear 2s linear forwards;
+	animation: fadeOutDarkener 2s linear forwards;
 }
 
 .FightBox {
 	width: 60%;
 	height: 40%;
-	top: 30%;
+	top: 40%;
 	left: 20%;
 	/*border: 1px solid red;*/
 	position: absolute;
 }
 
-.winner {
-
-}
-
-.loser {
-
-}
-
-.left {
-
-}
-
-.right {
-
-}
-
-@keyframes dissapear {
+@keyframes fadeOutDarkener {
 	0% { opacity: 0.5; }
 	99.9% { opacity: 0.5; }
 	100% { opacity: 0; }

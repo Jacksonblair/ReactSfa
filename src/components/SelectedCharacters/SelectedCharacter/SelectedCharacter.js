@@ -6,16 +6,28 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 
 const selectedCharacter = props => {
 
-	let selectedCharacterClass = null;
+	/*
+	Get character for each player from props
+	Assign portrait to correct class to get correct background image
+	*/
+
+	let portraitBackgroundClass = null;
+	let characterPortraitClass = null;
+
 	if (props.left) {
-		selectedCharacterClass = `${classes.SelectedCharacter} + ${classes.left}`;
+		portraitBackgroundClass = `${classes.portraitBackground} + ${classes.left}`;
 	} else {
-		selectedCharacterClass = `${classes.SelectedCharacter} + ${classes.right}`;
+		portraitBackgroundClass = `${classes.portraitBackground} + ${classes.right}`;
+	}
+
+	switch(props.character) {
+		default:
+			characterPortraitClass = classes.koalaPortrait;
 	}
 
 	return (
-		<div className={selectedCharacterClass}>
-			{props.character}
+		<div className={portraitBackgroundClass}>
+			<div className={characterPortraitClass} />
 		</div>
 	)
 }

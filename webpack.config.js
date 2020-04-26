@@ -28,7 +28,7 @@ module.exports = (_env,argv)=> {
     Config:{
       path:"./src/views/Config.js",
       outputHtml:"config.html",
-      build:false
+      build:true
     },
     LiveConfig:{
       path:"./src/views/LiveConfig.js",

@@ -1,20 +1,20 @@
 .full {
     display: inline-block;
-    width: 22px;
+    width: 10px;
     margin-left: 3%;
     height: 16px;
-	animation: fadeIn 1s linear, pulse 1s linear infinite;
+	animation: fadeIn 0.5s linear;
 	opacity: 1;
+	background: #ff5bf9;
 }
 
-.empty {
+.empty { 
 	display: inline-block;
-    width: 22px;
+    width: 10px;
     margin-left: 3%;
     height: 16px;
     background: white;
     opacity: 0.3;
-    animation: emptyBar 2s;
 }
 
 @keyframes pulse {
@@ -22,7 +22,7 @@
 		background: #efa3ff;
 	}
 	50% {
-		background: #e464ff;
+		background: #ff5bf9;
 	}
 	100% {
 		background: #efa3ff;
@@ -31,7 +31,6 @@
 
 @keyframes fadeIn {
 	0% { opacity: 0.3; }
-	60% { background: white; }
 	100% { opacity: 1; }
 }
 

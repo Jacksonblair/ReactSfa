@@ -14,15 +14,15 @@ class NextScreen extends Component {
 
 	render() {
 
-		let leftPlayerClass = `${classes.player} + ${classes.left}`
-		let rightPlayerClass = `${classes.player} + ${classes.right}`
+		let topPlayernameClass = `${classes.player} + ${classes.top}`
+		let bottomPlayernameClass = `${classes.player} + ${classes.bottom}`
 
 		return (
 			<div className={this.props.class}> 
-				<h1 className={classes.nextHeader}> UP NEXT </h1>
-				<h1 className={leftPlayerClass}> {this.props.playerOneUsername} </h1>
-				<h1 className={rightPlayerClass}> {this.props.playerTwoUsername} </h1>
-				<h1 className={classes.vs}> VS </h1>
+				<div className={classes.background}/>
+				<div className={topPlayernameClass}> {this.props.playerOneUsername} </div>
+				<div className={bottomPlayernameClass}> {this.props.playerTwoUsername} </div>
+				<img className={classes.vsElement} src={require("../../assets/images/upnextVsElement.png")}/>
 			</div>
 		)
 	}

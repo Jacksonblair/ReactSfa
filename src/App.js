@@ -24,24 +24,34 @@ class App extends PureComponent {
 	Authentication = new Authentication()
 	//if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null. 
 	twitch = window.Twitch ? window.Twitch.ext : null
-	state={
+	state = {
 			currentScreen: null,
 			screenClass: "screen fadeIn",
-			timedOut: false,
-			hasPressedPlay: false,
+			connectionTimedOut: false,
+			canPressPlay: true,
+			canPressPlayTimeout: null,
 			connectionTimeout: null
 	}
 
 	clickedPlayHandler = () => {
-		// Let app know user has joined game/queue, and should track packets.
-		if (!this.state.hasPressedPlay)
-			this.setState({hasPressedPlay: true})
+		// If user is allowed to press play 
+		// Tell server to handle user
+		if (this.state.canPressPlay) { 
+			axios.post('/play')
+			.then((res) => {
+				log(res);
+			}).catch((err) => {
+				log(err);
+			})
+		}
 
-		axios.post('/play')
-		.then((res) => {
-			log(res);
-		}).catch((err) => {
-			log(err);
+		// Stop user from pressing play, and set timeout before they can do it again
+		this.setState({ 
+			canPressPlayTimeout: 
+				setTimeout(() => {
+					this.setState({canPressPlay: true})
+				}, 5000), 
+			canPressPlay: false
 		})
 	}
 
@@ -51,18 +61,19 @@ class App extends PureComponent {
 	}
 
 	componentDidMount = () => {
+
 		if(this.twitch){
 			this.twitch.onAuthorized((auth)=>{
 				this.Authentication.setToken(auth.token, auth.userId)
-				log(this.Authentication)
+				// log(this.Authentication)
 				if(!this.state.finishedLoading){
 					// Set default axios header
 					axios.defaults.headers.post['Authorization'] = 'Bearer ' + auth.token;
 					axios.defaults.headers.post['opaque_id'] = auth.userId;
 					// Send user id to central store
 					this.props.onPlayerAuth(auth.userId);
-					console.log(auth.userId);
-					console.log(auth);
+					// console.log(auth.userId);
+					// console.log(auth);
 				}
 			})
 
@@ -72,8 +83,22 @@ class App extends PureComponent {
 				console.log('bits not enabled')
 			}
 
-			/*for testing*/
-			// this.twitch.bits.setUseLoopback(true);
+			// this.twitch.configuration.set({ 
+			// 	segment: 'broadcaster',
+			// 	version: '1.0.0',
+			// 	content: 'hello'
+			// })
+
+			// console.log(this.twitch.configuration);
+
+			// Get character configuration from twitch
+			// Set characters according to character config
+				// If character is a standard one
+				// Load sprite from app
+				// Else, load sprite from link
+
+			// need to make a CONFIG view for customising characters first.
+
 
 			// Transaction functionality.
 			// this.twitch.bits.getProducts().then(function(products) {
@@ -84,25 +109,32 @@ class App extends PureComponent {
 				console.log(transaction);
 			});
 
-			this.twitch.listen('broadcast',(target, contentType, body) => {
-				// let state = JSON.parse(body);
-				// this.props.onGameStateUpdate(state);
+			// this.twitch.listen('broadcast',(target, contentType, body) => {
+			// 	let state = JSON.parse(body);
+			// 	this.props.onGameStateUpdate(state);
 
-				// // Manages timeout if the server stops sending packets through pub sub.
-				// if (this.state.timedOut) {
-				// 	this.setState({timedOut: false})
-				// }
-				// clearTimeout(this.state.connectionTimeout);
-				// this.state.connectionTimeout = setTimeout(() => {
-				// 	console.log('Have not received a packet for x seconds, showing reconnect overlay.')
-				// 	if (this.state.hasPressedPlay) {
-				// 		this.setState({timedOut: true});
-				// 	}
-				// }, 10000)					
+			// 	// Manages timeout if the server stops sending packets through pub sub.
+			// 	// Every time we update from pub sub, we check if we have timed out
+			// 	// - If we have timedOut, we set it to false.
+			// 	// 
+			// 	// Additionally, when we get a packet...
+			// 	// We set a 10 second timer
+			// 	// If we get to 10 seconds without a packet, we set timedOut to true.
+			// 	// This timer gets cleared and reset each time we receive a packet
 
-				// log('got packet');
-					// log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
-			})
+			// 	if (this.state.connectionTimedOut) {
+			// 		this.setState({connectionTimedOut: false})
+			// 	}
+
+			// 	clearTimeout(this.state.connectionTimeout);
+			// 	this.state.connectionTimeout = setTimeout(() => {
+			// 		console.log('Have not received a packet for x seconds, showing reconnect overlay.')
+			// 		this.setState({connectionTimedOut: true});
+			// 	}, 10000)
+
+			// 	// log('got packet');
+			// 	// log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
+			// })
 
 			this.twitch.onError((err) => {
 				log(err);
@@ -132,61 +164,65 @@ class App extends PureComponent {
 	}
 
 	userIsPlayer = () => {
-		return this.props.appUserId === this.props.playerOneId || this.props.appUserId === this.props.playerTwoId
+		return this.props.appUserId == this.props.playerOneId || this.props.appUserId == this.props.playerTwoId
 	}
 
 	render(){
+		// Check if to show reconnectOverlay
+		let reconnectOverlay = null
+		if (this.state.timedOut) {
+			reconnectOverlay = <ReconnectOverlay clicked={this.clickedPlayHandler} />
+		}
 
-			// Check if to show reconnectOverlay
-			let reconnectOverlay = null
-			if (this.state.timedOut) {
-				reconnectOverlay = <ReconnectOverlay clicked={this.clickedPlayHandler} />
-			}
+		// Check if to show sneezeGuard
+		let sneezeGuard = null;
+		// Check if user is either one of players
+		if (!this.userIsPlayer()) {
+	    	sneezeGuard = <SneezeGuard canPressPlay={this.state.canPressPlay} clicked={this.clickedPlayHandler} queue={this.props.queue} appUserId={this.props.appUserId}/>
+		}
 
-			// Check if to show sneezeGuard
-			let sneezeGuard = null;
-			// Check if user is either one of players
-			// if (!this.userIsPlayer()) {
-		 //    	sneezeGuard = <SneezeGuard hasPressedPlay={this.state.hasPressedPlay} clicked={this.clickedPlayHandler} />
-			// }
+		// let turboButton = null;
+		// check if can show Turbo button
+		// if (!this.props.turboUsername && this.state.currentScreen === "FIGHT") {
+		// 	turboButton = <TurboButton clicked={this.clickedTurboHandler}/>
+		// }
 
-			let turboButton = null;
-			// check if can show Turbo button
-			if (!this.props.turboUsername && this.state.currentScreen === "FIGHT") {
-				turboButton = <TurboButton clicked={this.clickedTurboHandler}/>
-			}
+		let turboButton = (<TurboButton clicked={this.clickedTurboHandler}/>)
 
-			// Set screen visibility depending on current state.
-			let screen = null;
-			switch(this.state.currentScreen) {
-					case "START":
-							screen = <StartScreen class={this.state.screenClass} clicked={this.clickedPlayHandler}/>                    
-							break;
-					case "SELECT":
-							screen = <SelectScreen class={this.state.screenClass}/>
-							break;
-					case "FIGHT":
-							screen = <FightScreen class={this.state.screenClass}/>
-							break;
-					case "SCORE":
-							screen = <ScoreScreen class={this.state.screenClass}/>
-							break;
-					case "NEXT":
-							screen = <NextScreen class={this.state.screenClass}/>
-							break;
-			}
+		// Set screen visibility depending on current state.
+		let screen = null;
+		switch(this.state.currentScreen) {
+				case "START":
+						screen = <StartScreen class={this.state.screenClass} clicked={this.clickedPlayHandler}/>                    
+						break;
+				case "SELECT":
+						screen = <SelectScreen class={this.state.screenClass}/>
+						break;
+				case "FIGHT":
+						screen = <FightScreen class={this.state.screenClass}/>
+						break;
+				case "SCORE":
+						screen = <ScoreScreen class={this.state.screenClass}/>
+						break;
+				case "NEXT":
+						screen = <NextScreen class={this.state.screenClass}/>
+						break;
+		}
 
-			return (
-					<div className={classes.App}>
-						<div className={classes.view}>
-							{screen}
-							{sneezeGuard}
-							{reconnectOverlay}
-						</div>
-						<Console />
-						{turboButton}
+		return (
+				<div className={classes.App}>
+					<div className={classes.view}>
+						{screen}
+						{sneezeGuard}
+						{reconnectOverlay}
 					</div>
-			)
+					{<Console/>}
+					{turboButton}
+{/*					<p>{this.props.appUserId}</p>
+					<p>{this.props.playerOneId}</p>
+					<p>{this.props.playerTwoId}</p>*/}
+				</div>
+		)
 	}
 }
 
@@ -204,12 +240,13 @@ const mapStateToProps = state => {
 				appUserId: state.appUserId,
 				playerOneId: state.playerOneId,
 				playerTwoId: state.playerTwoId,
-				// characters: state.characters,
-				// characterOne: state.characterOne,
-				// characterTwo: state.characterTwo,
+				characters: state.characters,
+				characterOne: state.characterOne,
+				characterTwo: state.characterTwo,
 				playerOneActions: state.playerOneActions,
 				playerTwoActions: state.playerTwoActions,
-				turboUsername: state.turboUsername
+				turboUsername: state.turboUsername,
+				queue: state.queue
 		};
 }
 

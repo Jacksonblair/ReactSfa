@@ -1,18 +1,19 @@
 .button {
-    height: 124px;
-    width: 90px;
-    margin-left: -20px;
+    height: 180px;
+    width: 102px;
+    margin-left: 7px;
+    margin-right: 11px;
     display: inline-block;
     box-sizing: border-box;
     position: relative;
     background: none;
     border: none;
     outline: none;
-    background-position: 20px 0px;
 	background-image: url('~../../../../assets/images/characterSelectButtonBackground.png');
 	background-repeat: no-repeat;
 	transition: 0.3s all;
 }
+
 
 .button:hover {
 	background-image: url('~../../../../assets/images/characterSelectButtonBackgroundHovered.png');
@@ -34,4 +35,18 @@
     50% {
         background-image: url('~../../../../assets/images/characterSelectButtonBackgroundHovered.png');
     }
+}
+
+.portrait { 
+    position: absolute;
+    height: 135px;
+    width: 80px;
+    margin-top: 4px;
+    margin-left: 4px;
+    top: 0px;
+    left: 0px;
+}
+
+.koala { 
+    background-image: url('~../../../../assets/images/koalaPortrait.png');
 }

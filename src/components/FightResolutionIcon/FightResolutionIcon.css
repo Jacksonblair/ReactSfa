@@ -1,114 +1,153 @@
 .icon {
 	position: absolute;
-	height: 100%;
-	width: 40%;
+	height: 68px;
+	width: 83px;
 	box-sizing: border-box;
-	border: 2px solid white;
 	opacity: 0;
+	image-rendering: pixelated;
+	background-position: 0px 0px;
+	transform: scale(2.5);
 }
 
 .paper {
-	background-image: url('~../../assets/images/paper.png');
+	background-image: url('~../../assets/images/paperSheet.png');
 }
 
 .scissors {
-	background-image: url('~../../assets/images/scissors.png');
+	background-image: url('~../../assets/images/scissorSheet.png');
 }
 
 .rock {
-	background-image: url('~../../assets/images/rock.png');
+	background-image: url('~../../assets/images/rockSheet.png');
 }
+
+
 
 .leftWinner {
 	left: 0;
-	animation: leftWinner 2s linear;
+	animation: leftWinner 2s linear, faderWinner 2s linear;
+} .rightLoser {
+	right: 0;
+	animation: rightLoser 2s step-start, faderLoser 2s linear;
+	transform: scale(2.5) scaleX(-1);
 }
+
 
 .rightWinner {
 	right: 0;
-	animation: rightWinner 2s linear;
-}
-
-.leftLoser {
+	animation: rightWinner 2s linear, faderWinner 2s linear;
+	transform: scale(2.5) scaleX(-1);
+} .leftLoser {
 	left: 0;
-	animation: leftLoser 2s linear;
+	animation: leftLoser 2s step-start, faderLoser 2s linear;
 }
 
-.rightLoser {
-	right: 0;
-	animation: rightLoser 2s linear;
-}
+
 
 .leftTie {
 	left: 0;
-	animation: leftTie 2s linear;
+	animation: leftTie 2s linear, faderLoser 2s linear;
 }
 
 .rightTie {
 	right: 0;
-	animation: rightTie 2s linear;
+	animation: rightTie 2s linear, faderLoser 2s linear;
+	transform: scale(2.5) scaleX(-1);
 }
 
-@keyframes leftWinner {
-	1% { opacity: 0; }
-	15% { opacity: 1; left: 0; }
-	25% { left: 0; }
-	30% { left: 20%;}
-	85% { left: 0; opacity: 1;}
-	100% { opacity: 0;}
-}
+
 
 @keyframes rightWinner {
-	1% { opacity: 0; }
-	15% { opacity: 1; right: 0; }
-	25% { right: 0; }
-	30% { right: 20%;}
-	85% { right: 0; opacity: 1;}
-	100% { opacity: 0;}
-}
+	0% { right: 0; }
+	20% { right: 0; }
+	/* Wind up */
+	30% { right: -5%; }
 
-@keyframes rightLoser {
-	1% { opacity: 0;}
-	15% { opacity: 1;}
-	30% { border: 2px solid white;}
-	32% { border: 2px solid red; }
-	34% { border: 2px solid white;}
-	36% { border: 2px solid red;}
-	38% { border: 2px solid white;}
-	40% { border: 2px solid red; }
-	42% { border: 2px solid white;}
-	85% { opacity: 1; }
-	100% { opacity: 0; }
+	/* Speed curve */
+	31% { right: 3%; }
+	32% { right: 6%; }
+	33% { right: 11%; }
+	35% { right: 50%; } /* Hit */
+
+	/* draw back */
+	60% { right: 25%; }
+	100% { right: 0;}
 }
 
 @keyframes leftLoser {
-	1% { opacity: 0;}
-	15% { opacity: 1;}
-	30% { border: 2px solid white;}
-	32% { border: 2px solid red; }
-	34% { border: 2px solid white;}
-	36% { border: 2px solid red;}
-	38% { border: 2px solid white;}
-	40% { border: 2px solid red; }
-	42% { border: 2px solid white;}
+	35% { background-position: 0px 0px; }
+	70% { background-position: -83px 0px; }
+	100% { background-position: -166px 0px; }
+}
+
+
+
+
+
+
+
+@keyframes rightLoser {
+	35% { background-position: 0px 0px; }
+	70% { background-position: -83px 0px; }
+	100% { background-position: -166px 0px; }
+}
+
+@keyframes leftWinner {
+	0% { left: 0; }
+	20% { left: 0; }
+	/* Wind up */
+	30% { left: -5%; }
+
+	/* Speed curve */
+	31% { left: 3%; }
+	32% { left: 6%; }
+	33% { left: 11%; }
+	35% { left: 50%; } /* Hit */
+
+	/* draw back */
+	60% { left: 25%; }
+	100% { left: 0;}
+}
+
+
+
+
+
+@keyframes rightTie {
+	29% { right: 0; }
+	30% { right: -3%; }
+	31% { right: 1%; }
+	32% { right: 5%; }
+	33.9999% { background-position: 0px 0px }
+	34% { right: 25%; background-position: -83px 0px} /*Hit*/
+	85% { right: 0;}
+	100% { background-position: -83px 0px }
+}
+
+@keyframes leftTie {
+	29% { left: 0; }
+	30% { left: -3%; }
+	31% { left: 1%; }
+	32% { left: 5%; }
+	33.9999% { background-position: 0px 0px }
+	34% { left: 25%; background-position: -83px 0px} /*Hit*/
+	85% { right: 0;}
+	100% { background-position: -83px 0px }
+}
+
+
+
+@keyframes faderWinner { 
+	0% { opacity: 0; }
+	5% { opacity: 1; }
 	85% { opacity: 1; }
 	100% { opacity: 0; }
 }
 
-@keyframes rightTie {
-	1% { opacity: 0; }
-	15% { opacity: 1; right: 0; }
-	25% { right: 0; }
-	30% { right: 10%;}
-	85% { right: 0; opacity: 1;}
-	100% { opacity: 0;}
+@keyframes faderLoser { 
+	0% { opacity: 0; }
+	5% { opacity: 1; }
+	75% { opacity: 1; }
+	100% { opacity: 0; }
 }
 
-@keyframes leftTie {
-	1% { opacity: 0; }
-	15% { opacity: 1; left: 0; }
-	25% { left: 0; }
-	30% { left: 10%;}
-	85% { left: 0; opacity: 1;}
-	100% { opacity: 0;}
-}

@@ -165,11 +165,11 @@ class FightScreen extends Component {
 			)
 		}
 
-		// hide action bar if there is a fight underway..
-		// ..or if there is an overall winner (match is over) ..
-		// ..or if screen is not ready..
-		// ..or if the user is not a player..
-		let actionButtons = null;
+/*		hide action bar if there is a fight underway..
+		..or if there is an overall winner (match is over) ..
+		..or if screen is not ready..
+		..or if the user is not a player..
+*/		let actionButtons = null;
 		if (this.userIsPlayer() && !this.state.fightBeingShown && !this.props.overallWinner && this.state.screenReady) {
 			actionButtons = (
 				<ActionButtons lastAction={this.state.lastAction} clicked={(action) => this.actionClickedHandler(action)}/>
@@ -187,10 +187,13 @@ class FightScreen extends Component {
 			)
 		}
 
+		let turboBackground = (this.props.playerOneTurboHp || this.props.playerTwoTurboHp) ?
+			classes.turboBackground : classes.none;
 
 		return (
 			<div className={this.props.class}> 
 				<div className={classes.background}/>
+				<div className={turboBackground}/>
 				<UsernameBar playerOneUsername={this.props.playerOneUsername} playerTwoUsername={this.props.playerTwoUsername}/>
 				<HpBars left hp={this.props.playerOneHp} turboHp={this.props.playerOneTurboHp}/>
 				<HpBars hp={this.props.playerTwoHp} turboHp={this.props.playerTwoTurboHp}/>

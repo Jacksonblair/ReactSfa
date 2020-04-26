@@ -7,22 +7,30 @@ from using the interface (because it will not function)*/
 
 const sneezeGuard = props => {
 
-	let msg = props.hasPressedPlay ? (
-		<React.Fragment>
-			<p className={classes.text}> 
-			You joined the queue.
-			</p>
-		</React.Fragment>
-	)
-	: ( 
-		<React.Fragment>
-			<p className={classes.text}> 
-			Press PLAY to join.			
-			</p>
-			<button onClick={props.clicked} className={classes.playButton}> PLAY </button> 
-		</React.Fragment>
-	);
+	console.log(props.queue)
 
+	let msg = {}
+
+	if (props.queue.includes(props.appUserId)) {
+		msg = (
+			<React.Fragment>
+			<p className={classes.text}> You are in position X </p>
+			</React.Fragment>
+		)
+	} else if (props.canPressPlay) {
+		msg = (
+			<React.Fragment>
+			<button onClick={props.clicked} className={classes.playButton}> PLAY </button> 
+			</React.Fragment>
+		)
+	} else {
+		msg = (
+			<React.Fragment>
+			<p className={classes.text}> LOADING... </p>
+			</React.Fragment>
+		)
+	}
+	
 	return (
 		<React.Fragment>
 			<div className={classes.SneezeGuard}>

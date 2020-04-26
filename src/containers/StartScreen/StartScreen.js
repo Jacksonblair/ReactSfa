@@ -19,12 +19,25 @@ class StartScreen extends Component {
 	}
 
 	render() {
+	
+		let waitingHeader = null;
+		// if only a single player, display message
+		if ((this.props.playerOneUsername && !this.props.playerTwoUsername) || 
+			(this.props.playerTwoUsername && !this.props.playerOneUsername)) {
+			waitingHeader = ( 
+				<p className={classes.waitingHeader}> 
+					Waiting for second player
+				</p>
+			)
+		}
+
 		return (
 			<div className={this.props.class}> 
 				<div className={classes.background}/>	
 				<Logo />
 				<Username screen="START" username={this.props.playerOneUsername} left />
 				<Username screen="START" username={this.props.playerTwoUsername} />
+				{waitingHeader}
 			</div>
 		)
 	}

@@ -22,7 +22,8 @@ const initialState = {
 	overallWinner: null,
 	characters: [''],
 	scores: [''],
-	turboUsername: null
+	turboUsername: null,
+	queue: ['']
 }
 
 const reducer = (state = initialState, action) => {
@@ -57,7 +58,8 @@ const reducer = (state = initialState, action) => {
 		        characters: [...action.payload.gameState.characters],
 		        timer: action.payload.gameState.timer,
 		        scores: [...action.payload.gameState.scores],
-		        turboUsername: action.payload.gameState.turboUsername
+		        turboUsername: action.payload.gameState.turboUsername,
+		        queue: [...action.payload.gameState.queue]
 			}
 		case actionTypes.PLAYER_AUTH:
 			return{

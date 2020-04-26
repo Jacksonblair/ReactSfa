@@ -31,13 +31,7 @@ const actionButton = props => {
 	}
 
 	return (
-		<button 
-			className={buttonClass}
-			onClick={() => {
-					props.clicked(props.action);
-				}
-			}
-			> {props.action} </button>
+		<button className={buttonClass} onClick={() => {props.clicked(props.action) }} />
 	)
 }
 

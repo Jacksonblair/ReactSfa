@@ -15,11 +15,11 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class Console extends Component {
 
     state = {
-        screen: 'FIGHT',
+        screen: 'SELECT',
         playerOneId: '',
         playerTwoId: '',
-        playerOneUsername: 'USERNAME',
-        playerTwoUsername: 'USERNAME',
+        playerOneUsername: '',
+        playerTwoUsername: 'WOT',
         timer: 10,
         playerOneHp: 3,
         playerTwoHp: 3,
@@ -30,13 +30,14 @@ class Console extends Component {
         round: 1,
         winner: [],
         overallWinner: null,
-        characterOne: "test",
-        characterTwo: "test",
+        playerOneCharacter: "Character",
+        playerTwoCharacter: "Character",
         nextPlayerOne: 'asdasd123',
         nextPlayerTwo: 'asda12312',
         characters: ['fighter01', 'fighter02', 'fighter03', 'fighter04', 'fighter05'],
         scores: [],
-        turboUsername: ''
+        turboUsername: '',
+        queue: []
     }
 
     componentDidMount = () => {
@@ -95,6 +96,8 @@ class Console extends Component {
             }
         }
 
+        // this sets to overall winner, regardless of turbo HP
+        // server functions differently. 
         if (hp - 1 === 0) {
             log(`[Console] Player ${player} has 0 hp`);
             log(`[Console] Overall winner is player ${player === 1 ? 2 : 1}`);

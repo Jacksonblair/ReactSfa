@@ -1,21 +1,30 @@
-.SelectedCharacter {
+.portraitBackground {
     top: 10%;
-    height: 100%;
-    width: 140px;
+    height: 150px;
+    width: 95px;
     position: absolute;
     box-sizing: border-box;
     background: none;
     border: none;
     outline: none;
-    background-position: 20px 0px;
 	background-image: url('~../../../assets/images/characterSelectButtonBackground.png');
 	background-repeat: no-repeat;
 }
 
 .left {
-	left: 10%;
+	left: 15%;
 }
 
 .right {
     right: 15%;
+    transform: scaleX(-1);
+}
+
+.koalaPortrait { 
+    position: absolute;
+    height: 135px;
+    width: 80px;
+    margin-top: 4px;
+    margin-left: 4px;
+    background-image: url('~../../../assets/images/koalaPortrait.png');
 }

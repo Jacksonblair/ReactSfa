@@ -4,7 +4,6 @@ import SelectedCharacter from './SelectedCharacter/SelectedCharacter';
 
 const log = msg => window.Twitch.ext.rig.log(msg);
 
-
 const selectedCharacters = props => {
 	return (
 		<div className={classes.SelectedCharacters}>

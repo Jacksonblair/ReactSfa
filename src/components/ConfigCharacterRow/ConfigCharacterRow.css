@@ -1,0 +1,33 @@
+.characterRow {
+	min-height: 30px;
+	width: 100%;
+	border: 1px solid #cacaca;
+    margin: 4px;
+    background: #e6e6e6;
+}
+
+.characterRowDisabled { 
+	min-height: 30px;
+	width: 100%;
+	border: 1px solid #cacaca;
+    margin: 4px;
+    background: #e6e6e6;
+    color: #7d7d7d;
+}
+
+.characterName {
+	display: inline-block;
+	vertical-align: -webkit-baseline-middle;
+}
+
+
+.characterRowButton { 
+	display: inline-block;
+	vertical-align: -webkit-baseline-middle;
+	margin: 0px 8px;
+}
+
+.characterRow input {
+	vertical-align: -webkit-baseline-middle;
+	margin-left: 8px;
+}

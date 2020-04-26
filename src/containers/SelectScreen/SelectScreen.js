@@ -76,50 +76,35 @@ class SelectScreen extends Component {
 		let playerView = null;
 		let userView = null;
 		// Enable/disable player/user specific elements
-		// if (this.userIsPlayer()) {
-		// 	// Show scrolling character selection menu + character name
-		// 	playerView = (
-		// 		<React.Fragment>
-		// 			<p>{this.state.scroll}</p>
-		// 			<CharacterSelectButtons 
-		// 				characters={this.props.characters}
-		// 				scroll={this.state.scroll} 
-		// 				mouseEnter={(index) => this.onMouseEnterHandler(index)}
-		// 				mouseLeave={this.onMouseLeaveHandler}
-		// 				selected={(index) => this.characterSelectedHandler(index)}/>
-		// 			<ArrowButton left clicked={this.leftArrowClickedHandler}/>
-		// 			<ArrowButton clicked={this.rightArrowClickedHandler}/>
-		// 			<h1 className={classes.hoveredCharacter}> {this.state.hoveredCharacterName} </h1>
-		// 		</React.Fragment>
-		// 	)
-		// } else {
-		// 	userView = (
-		// 		<React.Fragment>
-		// 			<SelectedCharacters characterOne={this.props.characterOne} characterTwo={this.props.characterTwo}/>
-		// 			<h1 className={classes.vsHeader}> VS </h1>
-		// 			<Username screen="SELECT" username={this.props.playerOneUsername} left/>
-		// 			<Username screen="SELECT" username={this.props.playerTwoUsername}/>
-		// 			<CharacterName screen="SELECT" left character={this.props.characterOne}/>
-		// 			<CharacterName screen="SELECT" character={this.props.characterTwo} />
-		// 		</React.Fragment>
-		// 	)
-		// 	// Show both characters portraits (non-player view)
-		// } 
-
-		playerView = (
-			<React.Fragment>
-				<p>{this.state.scroll}</p>
-				<CharacterSelectButtons
-					characters={this.props.characters}
-					scroll={this.state.scroll} 
-					mouseEnter={(index) => this.onMouseEnterHandler(index)}
-					mouseLeave={this.onMouseLeaveHandler}
-					selected={(index) => this.characterSelectedHandler(index)}/>
-				<ArrowButton left clicked={this.leftArrowClickedHandler}/>
-				<ArrowButton clicked={this.rightArrowClickedHandler}/>
-				<h1 className={classes.hoveredCharacter}> {this.state.hoveredCharacterName} </h1>
-			</React.Fragment>
-		)
+		if (this.userIsPlayer()) {
+			// Show scrolling character selection menu + character name
+			playerView = (
+				<React.Fragment>
+					<p>{this.state.scroll}</p>
+					<CharacterSelectButtons 
+						characters={this.props.characters}
+						scroll={this.state.scroll} 
+						mouseEnter={(index) => this.onMouseEnterHandler(index)}
+						mouseLeave={this.onMouseLeaveHandler}
+						selected={(index) => this.characterSelectedHandler(index)}/>
+					<ArrowButton left clicked={this.leftArrowClickedHandler}/>
+					<ArrowButton clicked={this.rightArrowClickedHandler}/>
+					<h1 className={classes.hoveredCharacter}> {this.state.hoveredCharacterName} </h1>
+				</React.Fragment>
+			)
+		} else {
+			userView = (
+				<React.Fragment>
+					<SelectedCharacters characterOne={this.props.characterOne} characterTwo={this.props.characterTwo}/>
+					<h1 className={classes.vsHeader}> VS </h1>
+					<Username screen="SELECT" username={this.props.playerOneUsername} left/>
+					<Username screen="SELECT" username={this.props.playerTwoUsername}/>
+					<CharacterName screen="SELECT" left character={this.props.characterOne}/>
+					<CharacterName screen="SELECT" character={this.props.characterTwo} />
+				</React.Fragment>
+			)
+			// Show both characters portraits (non-player view)
+		} 
 
 		return (
 			<div className={this.props.class}> 

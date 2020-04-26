@@ -1,33 +1,19 @@
-.fightCharacterName {
-	position: absolute;
-	top: 40px;
-	border: 1px solid grey;
+.characterName {
+    position: absolute;
+    margin: 0;
+    font-size: 30px;
+    color: #ffc56b;
+    text-shadow: 1px 1px 1px black;
 }
 
-.selectCharacterName {
-    width: 40%;
-    position: fixed;
-    text-align: center;
-    bottom: 30px;
-    box-sizing: border-box;
-    font-size: 1.9rem;
-    margin: 0px;
-    color: #f9d37c;
-    text-shadow: 1px 1px 1px red;
+.left {
+    left: 5%;
+    bottom: 14%;
+    text-align: left;
 }
 
-.fightLeft {
-	left: 0;
-}
-
-.fightRight {
-	right: 0;
-}
-
-.selectLeft {
-	left: 0;
-}
-
-.selectRight {
-	right: 0;
+.right {
+    right: 5%;
+    bottom: 14%;
+    text-align: right;
 }

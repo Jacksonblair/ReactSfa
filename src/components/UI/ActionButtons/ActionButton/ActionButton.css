@@ -1,28 +1,41 @@
 .ActionButton {
-	display: inline-block;
-	width: 33.3%;
-	height: 100px;
-	box-sizing: border-box;
-	background: none;
+    position: absolute;
+    width: 33.33%;
+    height: 100px;
+    background: none;
+    background-position: -30px -20px;
+    background-size: 500%;
+	image-rendering: pixelated;
+	transition: 0.3s all;
+	border: none;
+	outline: none;
 }
 
 .lastActionButton {
-	display: inline-block;
-	width: 33.3%;
-	height: 100px;
-	border: 3px solid lime;
-	box-sizing: border-box;
-	background: none;
+    position: absolute;
+    width: 33.33%;
+    height: 100px;
+    background: none;
+    background-position: -30px -20px;
+    background-size: 500%;
+	image-rendering: pixelated;
+	transition: 0.3s all;
+	border: none;
+	margin-top: -8%;
+	outline: none;
 }
 
 .paper {
-	background-image: url('~../../../../assets/images/paper.png');
+	background-image: url('~../../../../assets/images/paperSheet.png');
+	left: 0px;
 }
 
 .scissors {
-	background-image: url('~../../../../assets/images/scissors.png');
+	background-image: url('~../../../../assets/images/scissorSheet.png');
+	left: 33.33%;
 }
 
 .rock {
-	background-image: url('~../../../../assets/images/rock.png');
+	background-image: url('~../../../../assets/images/rockSheet.png');
+	left: 66.66%;
 }

@@ -1,25 +1,34 @@
 .App {
     font-family: UpHeavalPro, Arial, Helvetica, sans-serif;
+    transform: scale(0.55);
+    position: absolute;
+    width: 480px;
+    height: 280px;
+    right: 0%;
+    top: 0%;
+    cursor: pointer;
+}
+
+.App button { 
+    cursor: inherit;
 }
 
 .view {
-    height: 220px;
-    width: 380px;
+    height: 280px;
+    width: 480px;
     overflow: hidden;
     position: absolute;
-    top: 0;
-    left: 0;
     box-sizing: border-box;
-    background: none;
+    background: black;
+    border: 4px solid grey;
+    border-radius: 20px;
 }
 
 :global .screen {
-    height: 98%;
-    width: 98%;
+    height: 100%;
+    width: 100%;
     opacity: 0;
     position: absolute;
-    top: 1%;
-    left: 1%;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
     overflow: hidden;

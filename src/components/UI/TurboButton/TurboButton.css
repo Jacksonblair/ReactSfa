@@ -1,4 +1,17 @@
 .TurboButton {
-    padding-top: 320px;
-	text-align: center;
+    width: 20%;
+    height: 30px;
+    position: absolute;
+    bottom: -30px;
+    line-height: 0px;
+    padding: auto;
+    font-size: 25px;
+    font-family: inherit;
+    font-weight: normal;
+    /* left: 40%; */
+    border-radius: 10px;
+    /*outline: none;*/
+    background: #dbdbff;
+    /*border: none;*/
+    color: #5858ff;
 }

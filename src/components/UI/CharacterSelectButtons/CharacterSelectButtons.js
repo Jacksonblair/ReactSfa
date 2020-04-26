@@ -13,7 +13,8 @@ const characterSelectButtons = props => {
 			mouseLeave={props.mouseLeave}
 			index={index} 
 			selected={props.selected}
-			key={index}/>
+			key={index}
+			character={value}/>
 	})
 
 	return (
