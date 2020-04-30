@@ -7,16 +7,14 @@ import Scroller from './Scroller/Scroller';
 
 const characterSelectButtons = props => {
 
-	let buttons = props.roster.map((value, index) => {
+	let buttons = props.roster.map((char, index) => {
 		return <CharacterSelectButton 
 			mouseEnter={props.mouseEnter} 
 			mouseLeave={props.mouseLeave}
 			index={index} 
 			selected={props.selected}
 			key={index}
-			name={value.name}
-			spritesheetUrl={value.url}
-			portraitUrl={value.portraitUrl}
+			character={props.roster[index]}
 		/>
 	})
 

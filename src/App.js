@@ -2,66 +2,25 @@ import React, { PureComponent } from 'react'
 import Authentication from './util/Authentication/Authentication'
 import { connect } from 'react-redux';
 import * as actionTypes from './store/actions';
-
-// screens
-import StartScreen from './containers/StartScreen/StartScreen';
-import SelectScreen from './containers/SelectScreen/SelectScreen';
-import FightScreen from './containers/FightScreen/FightScreen';
-import ScoreScreen from './containers/ScoreScreen/ScoreScreen';
-import NextScreen from './containers/NextScreen/NextScreen';
-import Console from './util/Console/Console';
-import SneezeGuard from './components/SneezeGuard/SneezeGuard';
-import TurboButton from './components/UI/TurboButton/TurboButton'
-import ReconnectOverlay from './components/ReconnectOverlay/ReconnectOverlay'
 import axios from 'axios';
-
 import classes from './App.css'
+
+import View from './containers/View/View.js'
+
 const log = window.Twitch ? msg => window.Twitch.ext.rig.log(msg) : null;
 
-
 class App extends PureComponent {
-
 	Authentication = new Authentication()
 	//if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null. 
 	twitch = window.Twitch ? window.Twitch.ext : null
-	state = {
-			currentScreen: null,
-			screenClass: "screen fadeIn",
-			connectionTimedOut: false,
-			canPressPlay: true,
-			canPressPlayTimeout: null,
-			connectionTimeout: null
-	}
 
-	clickedPlayHandler = () => {
-		// If user is allowed to press play 
-		// Tell server to handle user
-		if (this.state.canPressPlay) { 
-			axios.post('/play')
-			.then((res) => {
-				log(res);
-			}).catch((err) => {
-				log(err);
-			})
-		}
-
-		// Stop user from pressing play, and set timeout before they can do it again
-		this.setState({ 
-			canPressPlayTimeout: 
-				setTimeout(() => {
-					this.setState({canPressPlay: true})
-				}, 5000), 
-			canPressPlay: false
-		})
-	}
-
-	clickedTurboHandler = (/*productSku*/) => {
-		console.log('[App.clickedTurboHandler] Clicked')
-		this.twitch.bits.useBits('TUR');
+	state = { 
+		// put some state in here
+		connectionTimedOut: false,
+		connectionTimeout: null
 	}
 
 	componentDidMount = () => {
-
 		if(this.twitch){
 			this.twitch.onAuthorized((auth)=>{
 				this.Authentication.setToken(auth.token, auth.userId)
@@ -81,138 +40,97 @@ class App extends PureComponent {
 					let roster = this.twitch.configuration.broadcaster
 					if (roster) {
 						this.props.onRosterUpdate(JSON.parse(roster.content))
-						console.log(roster.content)						
+						console.log(roster.content)
 					}
 				}
 			})
 
+
+			// React to context changes
+			this.twitch.onContext((context, arr) => {
+				console.log(context)
+				console.log(arr)
+				// if video resolution changes
+				arr.forEach((val, i) => {
+					switch(val) {
+						case 'displayResolution':
+							let res = context.displayResolution.split('x');
+							this.props.onResolutionUpdate(res);
+							break;
+						default: return;
+					}
+				})
+			})
+
+			// $$DO I NEED THIS
 			if (this.twitch.features.isBitsEnabled) {
 				console.log('bits is enabled for this channel')
 			} else {
 				console.log('bits not enabled')
 			}
 
-
-
+			// $$DO I NEED THIS
 			this.twitch.bits.onTransactionComplete((transaction) => {
 				console.log(transaction);
 			});
 
-			// this.twitch.listen('broadcast',(target, contentType, body) => {
-			// 	let state = JSON.parse(body);
-			// 	this.props.onGameStateUpdate(state);
+			// Listen to pubsub for gamestate packets
+			this.twitch.listen('broadcast',(target, contentType, body) => {
+				let state = JSON.parse(body);
+				this.props.onGameStateUpdate(state);
 
-			// 	// Manages timeout if the server stops sending packets through pub sub.
-			// 	// Every time we update from pub sub, we check if we have timed out
-			// 	// - If we have timedOut, we set it to false.
-			// 	// 
-			// 	// Additionally, when we get a packet...
-			// 	// We set a 10 second timer
-			// 	// If we get to 10 seconds without a packet, we set timedOut to true.
-			// 	// This timer gets cleared and reset each time we receive a packet
+				// Manages timeout if the server stops sending packets through pub sub.
+				// Every time we update from pub sub, we check if we have timed out
+				// - If we have timedOut, we set it to false.
+				// 
+				// Additionally, when we get a packet...
+				// We set a 10 second timer
+				// If we get to 10 seconds without a packet, we set timedOut to true.
+				// This timer gets cleared and reset each time we receive a packet
 
-			// 	if (this.state.connectionTimedOut) {
-			// 		this.setState({connectionTimedOut: false})
-			// 	}
+				if (this.state.connectionTimedOut) {
+					this.setState({connectionTimedOut: false})
+					this.props.onTimeoutUpdate(false); // update store so <View> knows
+				}
 
-			// 	clearTimeout(this.state.connectionTimeout);
-			// 	this.state.connectionTimeout = setTimeout(() => {
-			// 		console.log('Have not received a packet for x seconds, showing reconnect overlay.')
-			// 		this.setState({connectionTimedOut: true});
-			// 	}, 10000)
+				clearTimeout(this.state.connectionTimeout);
+				this.state.connectionTimeout = setTimeout(() => {
+					console.log('[App] Have not received a packet for x seconds, showing reconnect overlay.')
+					this.setState({connectionTimedOut: true});
+					this.props.onTimeoutUpdate(true); // update store so <View> knows
+				}, 10000)
 
-			// 	// log('got packet');
-			// 	// log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
-			// })
+				// log('got packet');
+				// log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
+			})
 
 			this.twitch.onError((err) => {
 				log(err);
 			})
 		}
-
-		// set initial screen state
-		this.setState({currentScreen: this.props.screen });
 	}
 
 	componentWillUnmount = () => {
-			if(this.twitch){
-				this.twitch.unlisten('broadcast', ()=>console.log('successfully unlistened'))
-			}
-	}
-
-	componentDidUpdate = (prevProps) => {
-			// console.log(this.props.playerOneActions)
-			// console.log(this.props.playerTwoActions)
-			// screen fade in/out functionality
-			if (this.props.screen !== prevProps.screen) {
-				this.setState({screenClass: "screen fadeOut"})
-				setTimeout(() => {
-						this.setState({currentScreen: this.props.screen, screenClass: "screen fadeIn"})
-				}, 1000)
-			}
-	}
-
-	userIsPlayer = () => {
-		return this.props.appUserId == this.props.playerOneId || this.props.appUserId == this.props.playerTwoId
+		if(this.twitch){
+			this.twitch.unlisten('broadcast', () => console.log('successfully unlistened'))
+		}
 	}
 
 	render(){
-		// Check if to show reconnectOverlay
-		let reconnectOverlay = null
-		if (this.state.timedOut) {
-			reconnectOverlay = <ReconnectOverlay clicked={this.clickedPlayHandler} />
-		}
-
-		// Check if to show sneezeGuard
-		let sneezeGuard = null;
-		// Check if user is either one of players
-/*		if (!this.userIsPlayer()) {
-	    	sneezeGuard = <SneezeGuard canPressPlay={this.state.canPressPlay} clicked={this.clickedPlayHandler} queue={this.props.queue} appUserId={this.props.appUserId}/>
-		}*/
-
-		// let turboButton = null;
-		// check if can show Turbo button
-		// if (!this.props.turboUsername && this.state.currentScreen === "FIGHT") {
-		// 	turboButton = <TurboButton clicked={this.clickedTurboHandler}/>
-		// }
-
-		let turboButton = (<TurboButton clicked={this.clickedTurboHandler}/>)
-
-		// Set screen visibility depending on current state.
-		let screen = null;
-		switch(this.state.currentScreen) {
-				case "START":
-						screen = <StartScreen class={this.state.screenClass} clicked={this.clickedPlayHandler}/>                    
-						break;
-				case "SELECT":
-						screen = <SelectScreen class={this.state.screenClass}/>
-						break;
-				case "FIGHT":
-						screen = <FightScreen class={this.state.screenClass}/>
-						break;
-				case "SCORE":
-						screen = <ScoreScreen class={this.state.screenClass}/>
-						break;
-				case "NEXT":
-						screen = <NextScreen class={this.state.screenClass}/>
-						break;
+		let view = null;
+		// Only render screen if the resolution is above 600x400 pixels
+		if (this.props.resolution[0] >= 600 && this.props.resolution[1] >= 400) {
+			view = <View />
 		}
 
 		return (
-				<div className={classes.App}>
-					<div className={classes.view}>
-						{screen}
-						{sneezeGuard}
-						{reconnectOverlay}
-					</div>
-					{<Console/>}
-					{turboButton}
-{/*					<p>{this.props.appUserId}</p>
-					<p>{this.props.playerOneId}</p>
-					<p>{this.props.playerTwoId}</p>*/}
-				</div>
+			<div className={classes.App}>
+				{view}
+			</div>
 		)
 	}
+
+
 }
 
 /*
@@ -224,27 +142,19 @@ class App extends PureComponent {
 */
 
 const mapStateToProps = state => {
-		return {
-				screen: state.screen,
-				appUserId: state.appUserId,
-				playerOneId: state.playerOneId,
-				playerTwoId: state.playerTwoId,
-				characters: state.characters,
-				characterOne: state.characterOne,
-				characterTwo: state.characterTwo,
-				playerOneActions: state.playerOneActions,
-				playerTwoActions: state.playerTwoActions,
-				turboUsername: state.turboUsername,
-				queue: state.queue
-		};
+	return {
+		resolution: state.resolution
+	}
 }
 
 const mapDispatchToProps = dispatch => {
-		return {
-			onPlayerAuth: (id) => dispatch({type: actionTypes.PLAYER_AUTH, payload: { id: id }}),
-			onGameStateUpdate: (gameState) => dispatch({type: actionTypes.GAME_STATE_UPDATE, payload: { gameState: gameState }}),
-			onRosterUpdate: (roster) => dispatch({type: actionTypes.ROSTER_UPDATE, payload: { roster: roster }})
-		};
+	return {
+		onPlayerAuth: (id) => dispatch({type: actionTypes.PLAYER_AUTH, payload: { id: id }}),
+		onGameStateUpdate: (gameState) => dispatch({type: actionTypes.GAME_STATE_UPDATE, payload: { gameState: gameState }}),
+		onRosterUpdate: (roster) => dispatch({type: actionTypes.ROSTER_UPDATE, payload: { roster: roster }}),
+		onResolutionUpdate: (res) => dispatch({type: actionTypes.RESOLUTION_UPDATE, payload: { resolution: res }}),
+		onTimeoutUpdate: (timedOut) => dispatch({type: actionTypes.TIMEOUT_UPDATE, payload: { timeodOUt: timedOut }})
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

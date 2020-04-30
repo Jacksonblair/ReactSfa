@@ -45,7 +45,7 @@
     transform: scaleX(-1);
 }
 
-.testCharacter {
+.koalaSprite {
 	background-image: url('~../../../assets/images/koalaSheet.png');
 }	
 
@@ -74,20 +74,20 @@
 
 @keyframes overallWinner {
 	100% {
-		background-position: -720px 0px;
+		background-position: -540px 0px;
 	}
 }
 
 @keyframes overallLoser {
 	0% {
-		background-position: -900px 0px;
+		background-position: -720px 0px;
 	}
 	30% {
 		bottom: 0;
 	}
 	100% {
 		bottom: -180px;
-		background-position: -900px 0px
+		background-position: -720px 0px
 	}
 }
 

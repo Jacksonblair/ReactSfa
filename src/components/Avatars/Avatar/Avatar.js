@@ -13,6 +13,7 @@ const shouldUpdateProps = (prevProps, nextProps) => {
 const avatar = (props) => {
 
 	let avatarClass = null;
+	let avatarStyle = null;
 	// Apply left and right classes..
 	// Animations if first mount, static if an update
 
@@ -59,25 +60,42 @@ const avatar = (props) => {
 
 	// Apply character classes
 
+/*	winner={props.winner} 
+	overallWinner={props.overallWinner}
+	player={1}
+	character={props.characterOne}
+	mounted={props.mounted}
+	// This prop controls class assignment
+	fightBeingShown={props.fightBeingShown}
+	default={defaultChar[0]}
+	url={charUrl[0]}
+*/
 	/*
 		if props.default, check against default characters
 		else use url to mix inline style with avatarClass
 	*/
 
-
-
-	switch (props.character) {
-		case "fighter01":
-			avatarClass = `${avatarClass} + ${classes.testCharacter}`;
-			break;
-		default:
-			avatarClass = `${avatarClass} + ${classes.testCharacter}`;
-			break;
+	// Default character, switch on name and assign class.
+	if (props.character.enabled) {
+		switch (props.character.name.toLowerCase()) {
+			case "koala":
+				avatarClass = `${avatarClass} + ${classes.koalaSprite}`;
+				break;
+			default:
+				avatarClass = `${avatarClass} + ${classes.koalaSprite}`;
+				break;
+		}
+	// If not default, build style with props and combine with avatarClass
+	} else {
+		avatarStyle = {
+			backgroundImage: `url(${props.url})`
+		}
 	}
+
 
 	return (
 		<React.Fragment>
-			<div className={avatarClass} />
+			<div className={avatarClass} style={avatarStyle} />
 		</React.Fragment>
 	)		
 

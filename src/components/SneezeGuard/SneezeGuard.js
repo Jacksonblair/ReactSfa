@@ -7,8 +7,6 @@ from using the interface (because it will not function)*/
 
 const sneezeGuard = props => {
 
-	console.log(props.queue)
-
 	let msg = {}
 
 	if (props.queue.includes(props.appUserId)) {

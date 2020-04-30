@@ -17,7 +17,7 @@ const username = props => {
 		username = props.username
 	} else {
 		// log('[Username] No username');
-		username = props.left ? 'PLAYER 01' : 'PLAYER 02'
+		username = props.left ? 'NO PLAYER' : 'NO PLAYER'
 	}
 
 	// add 'screen' and left/right specific styles

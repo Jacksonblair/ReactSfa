@@ -1,0 +1,99 @@
+.container {
+    position: absolute;
+    width: 480px;
+    height: 310px;
+    transform: scale(0.5);
+    /*transition: 0.3s all;*/
+}
+
+.containerButtons {
+    position: absolute;
+    height: 30px;
+    text-align: center;
+    width: 100%;
+    top: 280px;
+}
+
+.view {
+    height: 280px;
+    width: 480px;
+    overflow: hidden;
+    position: absolute;
+    box-sizing: border-box;
+    background: black;
+    border: 4px solid grey;
+    border-radius: 20px;
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+}
+
+.minimizedView { 
+    height: 60px;
+    width: 60px;
+    left: inherit;
+    top: inherit;
+    right: inherit;
+    bottom: inherit;
+    position: absolute;
+    background: grey;
+    border: 2px solid white;
+}
+
+.minimizedViewButton {
+    height: 100%;
+    width: 100%;
+}
+
+:global .screen {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+:global .fadeIn {
+	animation: fadeIn 1s linear forwards;
+}
+
+:global .fadeOut {
+	animation: fadeOut 1s linear forwards;
+}
+
+@keyframes :global(fadeIn) {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+@keyframes :global(fadeOut) {
+	0% {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+.topLeft {
+    top: 20px;
+    left: 40px;
+    transform-origin: top left;
+}
+
+.topRight {
+    top: 20px;
+    right: 40px;
+    transform-origin: top right;
+}
+
+.bottomLeft {
+    bottom: 20px;
+    left: 40px;
+    transform-origin: bottom left;
+}
+
+.bottomRight {
+    bottom: 20px;
+    right: 40px;
+    transform-origin: bottom right;
+}

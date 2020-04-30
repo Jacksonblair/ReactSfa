@@ -4,26 +4,30 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 
 const characterSelectButton = props => {
 
-	let portraitClass = null;
+	let portraitClass = classes.portrait;
 	let portraitDiv = null;
-	let keyCharacters = ['Koala', 'Coffee', 'Dickhead']
+	let portraitStyle = null;
 	// We get a character name, a url for the spritesheet, and a url for the portrait image
 	// We also check for some default names, that only belong to default characters. 
 
 	// Check if name belongs to a default character
-	if (keyCharacters.includes(props.name)) {
-		// build a default portrait class
-		// $$ Right now its just koala.
-		portraitClass = `${classes.portrait} + ${classes.koala}`
-		// Tack it on to the portrait div obj
-		portraitDiv = ( <div className={portraitClass}/> )
+	if (props.character.enabled) {
+		switch (props.character.name.toLowerCase()) {
+			case "koala":
+				// build a default portrait class
+				// $$ Right now its just koala.
+				portraitClass = `${portraitClass} + ${classes.koala}`
+				break;
+			default:
+				portraitClass = `${portraitClass} + ${classes.koala}`
+				break;
+		}
 	} else {
-	// If the character is not a default character
-		// Build a portrait class using the portrait url	
-		let divStyle = {
-			backgroundImage: `url(${props.portraitUrl})`
+		// If the character is not a default character
+		// Build  a style using the portraitUrl
+		portraitStyle = {
+			backgroundImage: `url(${props.character.portraitUrl})`
 		};
-		portraitDiv = <div className={portraitClass} style={divStyle}/> 
 	}
 
 	return (
@@ -32,7 +36,7 @@ const characterSelectButton = props => {
 			onMouseLeave={() => props.mouseLeave()}
 			className={classes.button} 
 			onClick={() => props.selected(props.index)}>
-			{portraitDiv}
+			<div className={portraitClass} style={portraitStyle}/>
 		</button>
 	)
 }

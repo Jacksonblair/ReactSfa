@@ -37,7 +37,7 @@ class SelectScreen extends Component {
 		// ..and set character as 'last clicked'
 		this.setState({scroll: (charIndex - 1) * -25, clickedCharacterName: this.props.roster[charIndex].name})
 		axios.post('/select', {
-			character: this.props.roster[charIndex].name
+			character: charIndex
 		})
 		.then((res) => {
 			log(res);
@@ -76,7 +76,7 @@ class SelectScreen extends Component {
 		let playerView = null;
 		let userView = null;
 		// Enable/disable player/user specific elements
-		// if (this.userIsPlayer()) {
+		if (this.userIsPlayer()) {
 			// Show scrolling character selection menu + character name
 			playerView = (
 				<React.Fragment>
@@ -92,19 +92,21 @@ class SelectScreen extends Component {
 					<h1 className={classes.hoveredCharacter}> {this.state.hoveredCharacterName} </h1>
 				</React.Fragment>
 			)
-/*		} else {
+		} else {
 			userView = (
 				<React.Fragment>
-					<SelectedCharacters characterOne={this.props.characterOne} characterTwo={this.props.characterTwo}/>
+					<SelectedCharacters 
+						characterOne={this.props.roster[this.props.characterOne]} 
+						characterTwo={this.props.roster[this.props.characterTwo]}/>
 					<h1 className={classes.vsHeader}> VS </h1>
 					<Username screen="SELECT" username={this.props.playerOneUsername} left/>
 					<Username screen="SELECT" username={this.props.playerTwoUsername}/>
-					<CharacterName screen="SELECT" left character={this.props.characterOne}/>
-					<CharacterName screen="SELECT" character={this.props.characterTwo} />
+					<CharacterName screen="SELECT" left character={this.props.roster[this.props.characterOne].name}/>
+					<CharacterName screen="SELECT" character={this.props.roster[this.props.characterTwo].name} />
 				</React.Fragment>
 			)
 			// Show both characters portraits (non-player view)
-		} */
+		} 
 
 		return (
 			<div className={this.props.class}> 

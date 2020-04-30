@@ -15,7 +15,7 @@ const log = msg => window.Twitch.ext.rig.log(msg);
 class Console extends Component {
 
     state = {
-        screen: 'FIGHT',
+        screen: 'SCORE',
         playerOneId: '',
         playerTwoId: '',
         playerOneUsername: 'user',
@@ -30,8 +30,8 @@ class Console extends Component {
         round: 1,
         winner: [],
         overallWinner: null,
-        playerOneCharacter: "jeeves",
-        playerTwoCharacter: "Koala",
+        playerOneCharacter: 0,
+        playerTwoCharacter: 1,
         nextPlayerOne: 'asdasd123',
         nextPlayerTwo: 'asda12312',
         scores: [],

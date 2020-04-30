@@ -48,7 +48,7 @@
   ],
   "extensionViews": [
     {
-      "id": "2",
+      "id": "4",
       "label": "",
       "channelId": "62200832",
       "configurationAnchor": "video_overlay",
@@ -63,11 +63,34 @@
       "linkedUserId": "",
       "mode": "viewer",
       "isPopout": false,
-      "role": "Broadcaster",
+      "role": "Logged-In Viewer",
       "orientation": "Portrait",
       "frameSize": {
         "width": 1280,
         "height": 720
+      }
+    },
+    {
+      "id": "5",
+      "label": "",
+      "channelId": "62200832",
+      "configurationAnchor": "video_overlay",
+      "displayChannelName": "vilgefartz",
+      "type": "video_overlay",
+      "features": {
+        "isBitsEnabled": true,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "linked": false,
+      "linkedUserId": "",
+      "mode": "viewer",
+      "isPopout": false,
+      "role": "Broadcaster",
+      "orientation": "Portrait",
+      "frameSize": {
+        "width": 854,
+        "height": 480
       }
     }
   ],

@@ -3,9 +3,8 @@ import classes from './TurboButton.css';
 const log = msg => window.Twitch.ext.rig.log(msg);
 
 const turboButton = props => {
-
 	return (
-		<button className={classes.TurboButton} onClick={props.clicked}>
+		<button className={classes.turboButton} onClick={props.clicked}>
 			TURBO!
 		</button>
 	)

@@ -23,7 +23,9 @@ const initialState = {
 	roster: [''],
 	scores: [''],
 	turboUsername: null,
-	queue: ['']
+	queue: [''],
+	resolution: ['600', '600'],
+	timedOut: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -66,6 +68,16 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				roster: [...action.payload.roster]
+			}
+		case actionTypes.RESOLUTION_UPDATE:
+			return {
+				...state,
+				resolution: [...action.payload.resolution]
+			}
+		case actionTypes.TIMEOUT_UPDATE:
+			return {
+				...state,
+				timedOut: action.payload.timedOut
 			}
 
 	}

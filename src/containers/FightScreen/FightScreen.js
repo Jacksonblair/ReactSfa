@@ -201,8 +201,8 @@ class FightScreen extends Component {
 				<Avatars 
 					winner={this.props.winner[this.props.round - 1]} 
 					overallWinner={this.props.overallWinner}
-					characterOne={this.props.characterOne}
-					characterTwo={this.props.characterTwo}
+					characterOne={this.props.roster[this.props.characterOne]}
+					characterTwo={this.props.roster[this.props.characterTwo]}
 					mounted={this.state.avatarsShown}
 					// This prop controls class assignment
 					fightBeingShown={this.state.fightBeingShown}
