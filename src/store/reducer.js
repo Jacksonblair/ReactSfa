@@ -2,30 +2,19 @@ import * as actionTypes from './actions';
 const log = msg => window.Twitch.ext.rig.log(msg);
 
 const initialState = {
-	screen: "START",
+    queue: [],
+    scores: [],
+    results: [],
+    round: 0,
+    victor: 0,
+    smited: 0,
+    players: {},
+    FSM: -1,
+
 	appUserId: null,
-	playerOneId: null,
-	playerTwoId: null,
-	playerOneUsername: null,
-	playerTwoUsername: null,
-    playerOneHp: 3,
-    playerTwoHp: 3,
-	playerOneActions: [],
-	playerTwoActions: [],
-	playerOneTurboHp: 0,
-	playerTwoTurboHp: 0,
-	characterOne: null,
-	characterTwo: null,
-	timer: 10,
-	round: 1,
-	winner: [],
-	overallWinner: null,
-	roster: [''],
-	scores: [''],
-	turboUsername: null,
-	queue: [''],
 	resolution: ['600', '600'],
-	timedOut: false
+	timedOut: false,
+	roster: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,27 +26,15 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.GAME_STATE_UPDATE:
 			return {
 				...state, 
-				screen: action.payload.gameState.screen,
-				timer: action.payload.gameState.timer,
-				playerOneHp: action.payload.gameState.playerOneHp,
-				playerTwoHp: action.payload.gameState.playerTwoHp,
-				playerOneTurboHp: action.payload.gameState.playerOneTurboHp,
-				playerTwoTurboHp: action.payload.gameState.playerTwoTurboHp,
-				playerOneActions: [...action.payload.gameState.playerOneActions],
-				playerTwoActions: [...action.payload.gameState.playerTwoActions],
-				playerOneUsername: action.payload.gameState.playerOneUsername,
-				playerTwoUsername: action.payload.gameState.playerTwoUsername,
-				round: action.payload.gameState.round,
-				winner: [...action.payload.gameState.winner],
-				overallWinner: action.payload.gameState.overallWinner,
-				characterOne: action.payload.gameState.playerOneCharacter,
-				characterTwo: action.payload.gameState.playerTwoCharacter,
-		        playerOneId: action.payload.gameState.playerOneId,
-		        playerTwoId: action.payload.gameState.playerTwoId,
-		        timer: action.payload.gameState.timer,
-		        scores: [...action.payload.gameState.scores],
-		        turboUsername: action.payload.gameState.turboUsername,
-		        queue: [...action.payload.gameState.queue]
+				queue: action.payload.gamestate.queue,
+				scores: action.payload.gamestate.queue,
+				results: {...action.payload.gamestate.results},
+				round: action.payload.gamestate.round,
+				victor: action.payload.gamestate.victor,
+				defeated: action.payload.gamestate.defeated,
+				players: action.payload.gamestate.players,
+				FSM: action.payload.gamestate.FSM,
+				tieLimit: action.payload.gamestate.tieLimit
 			}
 		case actionTypes.PLAYER_AUTH:
 			return {
@@ -67,12 +44,12 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.ROSTER_UPDATE:
 			return {
 				...state,
-				roster: [...action.payload.roster]
+				roster: action.payload.roster
 			}
 		case actionTypes.RESOLUTION_UPDATE:
 			return {
 				...state,
-				resolution: [...action.payload.resolution]
+				resolution: action.payload.resolution
 			}
 		case actionTypes.TIMEOUT_UPDATE:
 			return {

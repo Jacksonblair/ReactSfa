@@ -10,7 +10,7 @@ import axios from 'axios';
 const store = createStore(reducer);
 
 // axios config
-axios.defaults.baseURL = 'https://streamfighteralpha.herokuapp.com/api';
+axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.request.use(request => {
 	console.log(request);

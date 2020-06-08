@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Authentication from './util/Authentication/Authentication'
 import { connect } from 'react-redux';
 import * as actionTypes from './store/actions';
@@ -9,7 +9,7 @@ import View from './containers/View/View.js'
 
 const log = window.Twitch ? msg => window.Twitch.ext.rig.log(msg) : null;
 
-class App extends PureComponent {
+class App extends Component {
 	Authentication = new Authentication()
 	//if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null. 
 	twitch = window.Twitch ? window.Twitch.ext : null
@@ -31,9 +31,6 @@ class App extends PureComponent {
 					axios.defaults.headers.post['opaque_id'] = auth.userId;
 					// Send user id to central store
 					this.props.onPlayerAuth(auth.userId);
-					// console.log(auth.userId);
-					// console.log(auth);
-
 
 					/* Get character roster from channel config
 					Store roster in central store */
@@ -50,7 +47,7 @@ class App extends PureComponent {
 			this.twitch.onContext((context, arr) => {
 				console.log(context)
 				console.log(arr)
-				// if video resolution changes
+				/*if video resolution changes*/
 				arr.forEach((val, i) => {
 					switch(val) {
 						case 'displayResolution':
@@ -94,18 +91,23 @@ class App extends PureComponent {
 				}
 
 				clearTimeout(this.state.connectionTimeout);
+				let timeout = 60 * 1000;
+
 				this.state.connectionTimeout = setTimeout(() => {
-					console.log('[App] Have not received a packet for x seconds, showing reconnect overlay.')
+					console.log(`[App] Have not received a packet for ${timeout/60} seconds`)
 					this.setState({connectionTimedOut: true});
 					this.props.onTimeoutUpdate(true); // update store so <View> knows
-				}, 10000)
-
-				// log('got packet');
-				// log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
+				}, timeout)
 			})
 
 			this.twitch.onError((err) => {
 				log(err);
+			})
+
+			// get roster from server
+			axios.get('/roster')
+			.then((res) => {
+				this.props.onRosterUpdate(JSON.parse(res.data))
 			})
 		}
 	}
@@ -117,6 +119,7 @@ class App extends PureComponent {
 	}
 
 	render(){
+
 		let view = null;
 		// Only render screen if the resolution is above 600x400 pixels
 		if (this.props.resolution[0] >= 600 && this.props.resolution[1] >= 400) {
@@ -150,10 +153,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onPlayerAuth: (id) => dispatch({type: actionTypes.PLAYER_AUTH, payload: { id: id }}),
-		onGameStateUpdate: (gameState) => dispatch({type: actionTypes.GAME_STATE_UPDATE, payload: { gameState: gameState }}),
+		onGameStateUpdate: (gamestate) => dispatch({type: actionTypes.GAME_STATE_UPDATE, payload: { gamestate: gamestate }}),
 		onRosterUpdate: (roster) => dispatch({type: actionTypes.ROSTER_UPDATE, payload: { roster: roster }}),
 		onResolutionUpdate: (res) => dispatch({type: actionTypes.RESOLUTION_UPDATE, payload: { resolution: res }}),
-		onTimeoutUpdate: (timedOut) => dispatch({type: actionTypes.TIMEOUT_UPDATE, payload: { timeodOUt: timedOut }})
+		onTimeoutUpdate: (timedOut) => dispatch({type: actionTypes.TIMEOUT_UPDATE, payload: { timedOut: timedOut }})
 	};
 }
 

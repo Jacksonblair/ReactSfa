@@ -1,0 +1,19 @@
+.Controls { 
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	height: 30px;
+	width: 100%;
+	border: 1px solid red;
+	box-sizing: border-box;
+}
+
+.ControlButton {
+	width: 30%;
+	margin: 1.5px 0px;
+	
+}
+
+.Play {
+
+}
